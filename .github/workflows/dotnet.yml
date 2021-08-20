@@ -19,6 +19,10 @@ jobs:
       run: dotnet restore
     - name: Build
       run: dotnet build --no-restore json2record
+    - name: Pack
+      run: dotnet pack json2record
+    - name: Install Tool
+      run: dotnet tool install --global --add-source json2record/nupkg/ json2record
     - name: Run Tests
       run: dotnet test json2record.tests --logger trx --verbosity normal --results-directory tests
     - name: Upload dotnet test results
