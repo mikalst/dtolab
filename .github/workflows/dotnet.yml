@@ -36,6 +36,6 @@ jobs:
     - name: Pack
       run: dotnet pack json2record
     - name: Publish
-      run: dotnet nuget push https://api.nuget.org/v3/index.json --api-key ${{ secrets.NUGET_API_KEY }}
+      run: dotnet nuget push ./json2record/nupkg/ --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.NUGET_API_KEY }}
     
     
