@@ -16,11 +16,11 @@ jobs:
         dotnet-version: 5.0.x
     - name: Restore dependencies
       run: dotnet restore
-    - name: Build
+    - name: Build json2record
       run: dotnet build --no-restore json2record
-    - name: Pack
+    - name: Pack json2record
       run: dotnet pack json2record
-    - name: Install Tool
+    - name: Install json2record
       run: dotnet tool install --global --add-source json2record/nupkg/ json2record
     - name: Run Tests
       run: dotnet test json2record.tests --logger trx --verbosity normal --results-directory tests

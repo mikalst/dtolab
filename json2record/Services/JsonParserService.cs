@@ -23,10 +23,12 @@ namespace JsonToRecord.Services {
             bool isInsideList = false;
             bool enclosedInQuotes = false;
 
-            char sChar;
-            while ((sChar = (char)streamReader.Read()) != -1)
+            int cInt;
+            char cChar;
+            while ((cInt = streamReader.Read()) != -1)
             {
-                switch (sChar) {
+                cChar = (char) cInt;
+                switch (cChar) {
                     case '{':
                         // Start of object
                         document = Parse(streamReader, document, string.IsNullOrEmpty(currentAttributeName) ? recordName : currentAttributeName, ref packages);
@@ -66,11 +68,11 @@ namespace JsonToRecord.Services {
                     case '\n':
                         break;
                     default:
-                        if (char.IsWhiteSpace(sChar)) {
+                        if (char.IsWhiteSpace(cChar)) {
                             break;
                         }
-                        else if (!readAttributeName && char.IsLetterOrDigit(sChar)) {
-                            string value = sChar.ToString();
+                        else if (!readAttributeName && char.IsLetterOrDigit(cChar)) {
+                            string value = cChar.ToString();
                             char c;
                             if (enclosedInQuotes) {
                                 while ((c = (char) streamReader.Read()) != '"') { 

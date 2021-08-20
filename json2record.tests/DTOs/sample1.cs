@@ -1,7 +1,7 @@
 using System; 
 using System.Collections.Generic; 
 
-namespace json2record.DTOs { 
+namespace json2record.tests.DTOs { 
     public record Address { 
         public int postalCode { get; init; } 
         public string value { get; init; } 
@@ -12,7 +12,7 @@ namespace json2record.DTOs {
         public double creditLimit { get; init; } 
         public int tier { get; init; } 
     } 
-    public record Sample { 
+    public record Sample1 { 
         public string firstName { get; init; } 
         public string surname { get; init; } 
         public List<Address> address { get; init; } 
