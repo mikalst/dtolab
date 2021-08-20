@@ -14,10 +14,7 @@ namespace JsonToRecord.Services {
         }
 
         public string Parse(StreamReader streamReader, string document, string recordName, ref SortedSet<string> packages) {
-
-
-            int s;
-
+            
             var lines = new List<string>();
 
             var readAttributeName = true;
@@ -26,9 +23,9 @@ namespace JsonToRecord.Services {
             bool isInsideList = false;
             bool enclosedInQuotes = false;
 
-            while ((s = streamReader.Read()) != -1)
+            char sChar;
+            while ((sChar = (char)streamReader.Read()) != -1)
             {
-                var sChar = (char) s;
                 switch (sChar) {
                     case '{':
                         // Start of object
