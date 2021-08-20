@@ -10,7 +10,7 @@
             "request": "launch",
             "preLaunchTask": "build",
             "program": "${workspaceFolder}/bin/Debug/net5.0/json2record.dll",
-            "args": [ "samples/sample.json", "DTOs" ],
+            "args": [ "samples/sample.json", "DTOs", "json2record.DTOs"],
             "cwd": "${workspaceFolder}",
             "console": "internalConsole",
             "stopAtEntry": false

@@ -8,8 +8,8 @@ namespace json2record.DTOs {
         public string city { get; init; } 
     } 
     public record Account { 
-        public float balance { get; init; } 
-        public float creditLimit { get; init; } 
+        public double balance { get; init; } 
+        public double creditLimit { get; init; } 
         public int tier { get; init; } 
     } 
     public record Sample { 

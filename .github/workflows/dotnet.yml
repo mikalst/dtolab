@@ -9,7 +9,6 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-    - run: 'echo "$(pwd)"'
     - uses: actions/checkout@v2
     - name: Setup .NET
       uses: actions/setup-dotnet@v1
@@ -17,10 +16,21 @@ jobs:
         dotnet-version: 5.0.x
     - name: Restore dependencies
       run: dotnet restore
-    - name: Build
+    - name: Build json2record
       run: dotnet build --no-restore json2record
-    - name: Test
-      run: dotnet test --verbosity normal json2record.tests
+    - name: Pack json2record
+      run: dotnet pack json2record
+    - name: Install json2record
+      run: dotnet tool install --global --add-source json2record/nupkg/ json2record
+    - name: Run Tests
+      run: dotnet test json2record.tests --logger trx --verbosity normal --results-directory tests
+    - name: Upload dotnet test results
+      uses: actions/upload-artifact@v2
+      with:
+        name: dotnet-test-results
+        path: tests
+        # Use always() to always run this step to publish test results when there are test failures
+      if: ${{ always() }}
       
   publish:
     
