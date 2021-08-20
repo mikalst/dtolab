@@ -20,7 +20,7 @@ jobs:
     - name: Build
       run: dotnet build --no-restore json2record
     - name: Test
-      run: dotnet test --no-build --verbosity normal json2record.tests
+      run: dotnet test --verbosity normal json2record.tests
       
   publish:
     
