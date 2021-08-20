@@ -62,6 +62,7 @@ namespace JsonToRecord
                     Console.WriteLine(ex.ToString());
                 }
 
+                Console.WriteLine($"Successfully create file {parsedArgs.outputPath}!");
 
                 return;
             }
