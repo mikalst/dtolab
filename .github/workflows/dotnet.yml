@@ -19,8 +19,15 @@ jobs:
       run: dotnet restore
     - name: Build
       run: dotnet build --no-restore json2record
-    - name: Test
-      run: dotnet test --verbosity normal json2record.tests
+    - name: Run Tests
+      run: dotnet test json2record.tests --logger trx --verbosity normal --results-directory tests
+    - name: Upload dotnet test results
+      uses: actions/upload-artifact@v2
+      with:
+        name: dotnet-test-results
+        path: tests
+        # Use always() to always run this step to publish test results when there are test failures
+      if: ${{ always() }}
       
   publish:
     
