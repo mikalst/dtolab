@@ -1,0 +1,17 @@
+{
+    "FirstName": "Test",
+    "Surname":"!*@#&(#)(()string",
+    "Address": [
+        {
+            "postalCode": 4027,
+            "value": "Vegvegen 39",
+            "city": "Narvik"
+        }
+    ],
+    "Account": {
+        "Balance": 1337.733,
+        "CreditLimit": 10000.0,
+        "Tier": 3
+    },
+    "Date": "1990-01-01T08:00Z"
+}
