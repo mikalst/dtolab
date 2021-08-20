@@ -12,7 +12,7 @@ namespace json2record.tests.DTOs {
         public double creditLimit { get; init; } 
         public int tier { get; init; } 
     } 
-    public record Sample { 
+    public record Sample1 { 
         public string firstName { get; init; } 
         public string surname { get; init; } 
         public List<Address> address { get; init; } 

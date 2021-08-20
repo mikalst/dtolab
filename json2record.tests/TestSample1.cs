@@ -10,12 +10,12 @@ namespace json2record.tests
 {
     public class UnitTestSample1
     {
-        private Sample _sample;
+        private Sample1 _sample;
         public UnitTestSample1 () {
             try {
                 using (StreamReader file = File.OpenText(@"../../../samples/sample1.json"))
                 {
-                    _sample = JsonSerializer.Deserialize<Sample>(
+                    _sample = JsonSerializer.Deserialize<Sample1>(
                         new UTF8Encoding().GetBytes(file.ReadToEnd()),
                         new JsonSerializerOptions() {
                             PropertyNameCaseInsensitive = true

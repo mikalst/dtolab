@@ -19,12 +19,8 @@
     </PackageReference>
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\json2record\json2record.csproj" />
-  </ItemGroup>
-
-  <Target Name="json2record" AfterTargets="Build">
-    <Exec Command="dotnet .\bin\Debug\net5.0\json2record.dll .\samples\sample.json .\DTOs json2record.tests.DTOs" />
+  <Target Name="json2record" AfterTargets="Restore">
+    <Exec Command="dotnet ..\json2record\bin\Debug\net5.0\json2record.dll .\samples\sample1.json .\DTOs json2record.tests.DTOs" />
   </Target>
 
 </Project>
