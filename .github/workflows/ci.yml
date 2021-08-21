@@ -1,10 +1,11 @@
-name: 'CICD'
+name: 'CI'
 
 on:
   push:
     branches: [ main, dev ]
   pull_request:
     branches: [ main, dev ]
+
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -17,13 +18,18 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore
     - name: Build json2record
-      run: dotnet build --no-restore json2record
+      run: dotnet build --no-restore --configuration Release json2record
     - name: Pack json2record
-      run: dotnet pack json2record
+      run: dotnet pack --no-build --configuration Release json2record
+    - name: Upload json2record
+      uses: actions/upload-artifact@v2
+      with:
+        name: json2record
+        path: json2record/nupkg/
     - name: Install json2record
       run: dotnet tool install --global --add-source json2record/nupkg/ json2record
     - name: Run Tests
-      run: dotnet test json2record.tests --logger trx --verbosity normal --results-directory tests
+      run: dotnet test json2record.tests --logger trx --configuration Release --verbosity normal --results-directory tests
     - name: Upload dotnet test results
       uses: actions/upload-artifact@v2
       with:
@@ -31,23 +37,3 @@ jobs:
         path: tests
         # Use always() to always run this step to publish test results when there are test failures
       if: ${{ always() }}
-      
-  publish:
-    
-    runs-on: ubuntu-latest
-
-    needs: [ test ]
-    
-    if: ${{ github.ref == 'refs/heads/main' }}
-    steps:
-    - uses: actions/checkout@v2
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: 5.0.x
-    - name: Pack
-      run: dotnet pack json2record
-    - name: Publish
-      run: dotnet nuget push ./json2record/nupkg/ --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.NUGET_API_KEY }}
-    
-    
