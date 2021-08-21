@@ -42,8 +42,8 @@ jobs:
     
     runs-on: ubuntu-latest
     if: ${{ github.ref == 'refs/heads/main' }} 
+    needs: build-test
     steps:
-    - uses: actions/checkout@v2
     - uses: actions/download-artifact@v2
       with:
         name: json2record
