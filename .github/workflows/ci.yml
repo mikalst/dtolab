@@ -1,10 +1,11 @@
-name: 'CICD'
-
+name: 'CD'
 on:
-  push:
-    branches: [ main, dev ]
-  pull_request:
-    branches: [ main, dev ]
+  workflow_run:
+    workflows: ['Test Report']                     # runs after CI workflow
+    branches: [ main ]
+    types:
+      - completed
+
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -17,13 +18,13 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore
     - name: Build json2record
-      run: dotnet build --no-restore json2record
+      run: dotnet build --no-restore --configuration Release json2record
     - name: Pack json2record
-      run: dotnet pack json2record
+      run: dotnet pack --no-build json2record
     - name: Install json2record
       run: dotnet tool install --global --add-source json2record/nupkg/ json2record
     - name: Run Tests
-      run: dotnet test json2record.tests --logger trx --verbosity normal --results-directory tests
+      run: dotnet test json2record.tests --logger trx --configuration Release --verbosity normal --results-directory tests
     - name: Upload dotnet test results
       uses: actions/upload-artifact@v2
       with:

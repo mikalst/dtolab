@@ -19,7 +19,10 @@
     </PackageReference>
   </ItemGroup>
 
-  <Target Name="json2record" AfterTargets="Restore">
+  <Target Name="json2record-manual" AfterTargets="Restore" Condition=" '$(Configuration)' == 'Debug' ">
+    <Exec Command="dotnet ../json2record/bin/Debug/net5.0/json2record.dll samples/sample1.json DTOs json2record.tests.DTOs" />
+  </Target>
+  <Target Name="json2record" AfterTargets="Restore" Condition=" '$(Configuration)' == 'Release'">
     <Exec Command="json2record samples/sample1.json DTOs json2record.tests.DTOs" />
   </Target>
 
