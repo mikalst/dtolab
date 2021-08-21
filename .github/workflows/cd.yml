@@ -1,16 +1,16 @@
-name: 'CI'
+name: 'CD'
 
 on:
-  push:
-    branches: [ main, dev ]
-  pull_request:
-    branches: [ main, dev ]
+  workflow_run:
+    workflows: ['Test Report']                     # runs after CI workflow
+    branches: [ main ]
+    types:
+      - completed
+
 jobs:
   publish:
     
     runs-on: ubuntu-latest
-
-    needs: [ test ]
     
     if: ${{ github.ref == 'refs/heads/main' }}
     steps:
