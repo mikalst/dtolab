@@ -37,3 +37,19 @@ jobs:
         path: tests
       # Use always() to always run this step to publish test results when there are test failures
       if: ${{ always() }}
+  
+  publish:
+    
+    runs-on: ubuntu-latest
+    if: ${{ github.ref == 'refs/heads/main' }} 
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/download-artifact@v2
+      with:
+        name: json2record
+        path: artifact/
+    - uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 5.0.x
+    - name: Publish
+      run: dotnet nuget push artifact/ --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.NUGET_API_KEY }}
