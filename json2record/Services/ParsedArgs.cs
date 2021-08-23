@@ -1,7 +1,9 @@
-namespace JsonToRecord.Services
+namespace json2record.Services
 {
     public record ParsedArgs
     {
+        internal string outputDirectory;
+
         public string recordName { get; init; }
 
         public string resolvedInputPath { get; init; }

@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using System.Text;
-using JsonToRecord.Services;
+using Humanizer;
+using json2record.Services;
 
 namespace JsonToRecord
 {
@@ -30,31 +31,20 @@ namespace JsonToRecord
 
                 try
                 {
-                    var output = "";
-                    var inner = "";
+                    var structure = new Dictionary<string, List<string>>();
+                    var packages = new Dictionary<string, SortedSet<string>>();
                     // Open the stream and read it back.
                     using (StreamReader sr = File.OpenText(parsedArgs.resolvedInputPath))
                     {
-                        SortedSet<string> packages = new SortedSet<string>();
-                        inner = new JsonParserService().Parse(sr, "", parsedArgs.recordName, ref packages);
+                        var lines = new JsonParserService().Parse(sr, "", parsedArgs.recordName, ref packages, ref structure);
 
-                        foreach (var s in packages){
-                            output += $"using {s}; \n";
-                        }
-                        if (packages.Count > 0) output += "\n"; 
-                        output += $"namespace {parsedArgs.namespaceArg} {{ \n";
-                        output += inner;
-                        output += "}";
                     }
 
-                    // Create the file, or overwrite if the file exists.
-                    using (FileStream fs = File.Create(parsedArgs.outputPath))
-                    {
-                        byte[] o = new UTF8Encoding(true).GetBytes(output);
-                        fs.Write(o, 0, o.Length);
+                    var fileWriterService = new FileWriterService();
+                    foreach (var key in structure.Keys) {
+                        // Create the file, or overwrite if the file exists.
+                        fileWriterService.WriteFile(key, parsedArgs, packages[key], structure[key]);
                     }
-
-                    
                 }
 
                 catch (Exception ex)
@@ -62,7 +52,7 @@ namespace JsonToRecord
                     Console.WriteLine(ex.ToString());
                 }
 
-                Console.WriteLine($"Successfully created file {parsedArgs.outputPath}!");
+
 
                 return;
             }

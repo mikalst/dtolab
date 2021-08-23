@@ -6,16 +6,22 @@ using Humanizer;
 using System;
 using System.Text;
 
-namespace JsonToRecord.Services {
+namespace json2record.Services {
     public class JsonParserService {
         private readonly UTF8Encoding _encoding;
         public JsonParserService() {
             _encoding = new UTF8Encoding(true);
         }
 
-        public string Parse(StreamReader streamReader, string document, string recordName, ref SortedSet<string> packages) {
+        public List<string> Parse(
+            StreamReader streamReader,
+            string document,
+            string recordName,
+            ref Dictionary<string, SortedSet<string>> packages,
+            ref Dictionary<string, List<string>> structure) {
             
             var lines = new List<string>();
+            var localPackages = new SortedSet<string>();
 
             var readAttributeName = true;
             string currentAttributeName = "";
@@ -31,14 +37,20 @@ namespace JsonToRecord.Services {
                 switch (cChar) {
                     case '{':
                         // Start of object
-                        document = Parse(streamReader, document, string.IsNullOrEmpty(currentAttributeName) ? recordName : currentAttributeName, ref packages);
+                        structure.Add(
+                            string.IsNullOrEmpty(currentAttributeName) ? recordName : currentAttributeName, 
+                            Parse(
+                                streamReader,
+                                document,
+                                string.IsNullOrEmpty(currentAttributeName) ? recordName : currentAttributeName,
+                                ref packages,
+                                ref structure));
                         lines.Add(GenerateObjectAttribute(currentAttributeName, isInsideList));
                         break;
                     case '}':
                         // End of object
-                        return document + GenerateDocument(
-                            recordName,
-                            lines);
+                        packages.Add(recordName, localPackages);
+                        return lines;
                     case '"':
                         enclosedInQuotes = !enclosedInQuotes;
                         if (readAttributeName) {
@@ -52,7 +64,7 @@ namespace JsonToRecord.Services {
                         break;
                     case '[':
                         // List
-                        packages.Add("System.Collections.Generic");
+                        localPackages.Add("System.Collections.Generic");
                         isInsideList = true;
                         break;
                     case ']':
@@ -72,6 +84,8 @@ namespace JsonToRecord.Services {
                             break;
                         }
                         else if (!readAttributeName && char.IsLetterOrDigit(cChar)) {
+
+                            // Read variable contents.
                             string value = cChar.ToString();
                             char c;
                             if (enclosedInQuotes) {
@@ -87,11 +101,12 @@ namespace JsonToRecord.Services {
                                 }
                             }
 
+                            // Infer datatype from contents.
                             DateTime dateTimeValue;
                             int intValue;
                             float floatValue;
                             if (DateTime.TryParse(value, out dateTimeValue)){
-                                packages.Add("System");
+                                localPackages.Add("System");
                                 lines.Add(GenerateDateTimeAttribute(currentAttributeName, isInsideList));
                             }
                             else if (Int32.TryParse(value, out intValue)) {
@@ -107,21 +122,10 @@ namespace JsonToRecord.Services {
                         break;
                 }
             }
-            return document;
+            return lines;
         }
 
-        private string GenerateDocument(
-            string recordName,
-            List<string> lines)
-        {
-            var innerDocument = "";
-            innerDocument += $"    public record {recordName.Pascalize()} {{ \n";
-            foreach(var s in lines) {
-                innerDocument += s;
-            }
-            innerDocument += $"    }} \n";
-            return innerDocument;
-        }
+
 
         private string GenerateObjectAttribute(string currentField, bool isInsideList)
         {
