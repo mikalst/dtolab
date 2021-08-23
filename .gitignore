@@ -448,5 +448,4 @@ $RECYCLE.BIN/
 !.vscode/extensions.json
 
 ##
-json2record/DTOs
 json2record.tests/DTOs
