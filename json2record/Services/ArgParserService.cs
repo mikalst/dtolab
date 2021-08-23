@@ -1,7 +1,7 @@
 using System;
 using System.IO;
 
-namespace JsonToRecord.Services{
+namespace json2record.Services{
     public class ArgParserService{
         public ParsedArgs Parse(string[] args) {
             
@@ -13,6 +13,7 @@ namespace JsonToRecord.Services{
                 resolvedInputPath = resolvedInputPath,
                 recordName = recordName,
                 outputPath = Path.Combine(Path.GetFullPath(new Uri(Path.Combine(directory, args[1])).LocalPath), recordName + ".cs"),
+                outputDirectory = Path.GetFullPath(new Uri(Path.Combine(directory, args[1])).LocalPath),
                 namespaceArg = namespaceArg
             };
         }
