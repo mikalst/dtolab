@@ -8,5 +8,7 @@ dotnet tool install --global json2record
 
 ## Usage
 ```
-json2record sample.json DTOs myNamespace.DTOs
+json2record <inputfile> <outputfolder> <namespace>
 ```
+
+![Demonstration of json2record](docs/usage.gif)
