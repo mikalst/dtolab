@@ -1,4 +1,5 @@
 # json2record
+[![CI](https://github.com/mikalst/json2record/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/mikalst/json2record/actions/workflows/ci.yml)
 A simply utility for generating c#9 records from a JSON example.
 
 ## Installation
