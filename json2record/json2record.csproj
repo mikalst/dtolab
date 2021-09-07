@@ -7,16 +7,19 @@
 
     <PackAsTool>true</PackAsTool>
     <ToolCommandName>json2record</ToolCommandName>
-    <Version>1.1.1</Version>
+    <Version>1.1.2</Version>
+
     <PackageOutputPath>./nupkg</PackageOutputPath>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <RepositoryUrl>https://github.com/mikalst/json2record.git</RepositoryUrl> 
     <RepositoryType>git</RepositoryType> 
+    <PackageReadmeFile>README.md</PackageReadmeFile>
 
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="humanizer" Version="2.11.10" />
+    <None Include="../README.md" Pack="true" PackagePath="\"/>
   </ItemGroup>
 
 </Project>
