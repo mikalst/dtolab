@@ -1,0 +1,15 @@
+{
+    "mainAddress": {
+        "addressId": 146336,
+        "country": {
+            "id": "NO",
+            "name": "NORGE"
+        }
+    },
+    "deliveryAddress": {
+        "addressId": 146336,
+        "country": {
+            "id": "NO"
+        }
+    }
+}

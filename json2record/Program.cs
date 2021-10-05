@@ -4,6 +4,7 @@ using System.IO;
 using System.Reflection;
 using System.Text;
 using Humanizer;
+using json2record.Exceptions;
 using json2record.Services;
 
 namespace JsonToRecord
@@ -18,7 +19,7 @@ namespace JsonToRecord
                 .InformationalVersion
                 .ToString();
 
-            if (args.Length == 3)
+            if (args.Length>=3 && args.Length <= 4)
             {
                 var parsedArgs = new ArgParserService().Parse(args);
 
@@ -27,17 +28,16 @@ namespace JsonToRecord
                 Console.WriteLine($"json2record bin directory {assemblyInfo.Location}");
 ;
                 Console.WriteLine($"Generating record for {parsedArgs.resolvedInputPath}");
-                Console.WriteLine($"      with target {parsedArgs.outputPath}");
+                Console.WriteLine($"... with target {parsedArgs.outputPath}");
 
                 try
                 {
-                    var structure = new Dictionary<string, List<string>>();
+                    var structure = new Dictionary<string, HashSet<string>>();
                     var packages = new Dictionary<string, SortedSet<string>>();
                     // Open the stream and read it back.
                     using (StreamReader sr = File.OpenText(parsedArgs.resolvedInputPath))
                     {
-                        var lines = new JsonParserService().Parse(sr, "", parsedArgs.recordName, ref packages, ref structure);
-
+                        var lines = new JsonParserService().Parse(sr, parsedArgs.recordName, ref packages, ref structure);
                     }
 
                     var fileWriterService = new FileWriterService();
@@ -46,13 +46,14 @@ namespace JsonToRecord
                         fileWriterService.WriteFile(key, parsedArgs, packages[key], structure[key]);
                     }
                 }
-
+                catch (NonMatchingDuplicateSubrecordsException nmex)
+                {
+                    Console.WriteLine(nmex.ToString());
+                }
                 catch (Exception ex)
                 {
                     Console.WriteLine(ex.ToString());
                 }
-
-
 
                 return;
             }
@@ -61,7 +62,7 @@ namespace JsonToRecord
                 Console.WriteLine($"writefile v{assemblyVersion}");
                 Console.WriteLine("-------------");
                 Console.WriteLine("\nUsage:");
-                Console.WriteLine("json2record <filePath> <outputDirectory> <namespace>");
+                Console.WriteLine("json2record <filePath> <outputDirectory> <namespace> <consolidateSubrecords>");
 
             }
         }

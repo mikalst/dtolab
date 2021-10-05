@@ -14,7 +14,7 @@ namespace json2record.Services{
                 recordName = recordName,
                 outputPath = Path.Combine(Path.GetFullPath(new Uri(Path.Combine(directory, args[1])).LocalPath), recordName + ".cs"),
                 outputDirectory = Path.GetFullPath(new Uri(Path.Combine(directory, args[1])).LocalPath),
-                namespaceArg = namespaceArg
+                namespaceArg = namespaceArg,
             };
         }
     }

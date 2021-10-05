@@ -5,6 +5,8 @@ using System.Globalization;
 using Humanizer;
 using System;
 using System.Text;
+using json2record.Exceptions;
+using System.Linq;
 
 namespace json2record.Services {
     public class JsonParserService {
@@ -13,14 +15,13 @@ namespace json2record.Services {
             _encoding = new UTF8Encoding(true);
         }
 
-        public List<string> Parse(
+        public HashSet<string> Parse(
             StreamReader streamReader,
-            string document,
             string recordName,
             ref Dictionary<string, SortedSet<string>> packages,
-            ref Dictionary<string, List<string>> structure) {
+            ref Dictionary<string, HashSet<string>> structure) {
             
-            var lines = new List<string>();
+            var lines = new HashSet<string>();
             var localPackages = new SortedSet<string>();
 
             var readAttributeName = true;
@@ -36,20 +37,36 @@ namespace json2record.Services {
                 cChar = (char) cInt;
                 switch (cChar) {
                     case '{':
-                        // Start of object
-                        structure.Add(
-                            string.IsNullOrEmpty(currentAttributeName) ? recordName : currentAttributeName, 
-                            Parse(
+                        // If subJSON already registered
+                        var subRecordName = String.IsNullOrWhiteSpace(currentAttributeName) ? recordName : currentAttributeName;
+                        if(structure.ContainsKey(subRecordName)) {
+                            Console.WriteLine($"Found duplicate subJSON with key '{subRecordName}'.");
+                            var alternateStructure = Parse(
                                 streamReader,
-                                document,
-                                string.IsNullOrEmpty(currentAttributeName) ? recordName : currentAttributeName,
+                                subRecordName,
                                 ref packages,
-                                ref structure));
-                        lines.Add(GenerateObjectAttribute(currentAttributeName, isInsideList));
+                                ref structure);
+                            if(!alternateStructure.SetEquals(structure.GetValueOrDefault(subRecordName)))
+                            {
+                                throw new NonMatchingDuplicateSubrecordsException(
+                                    $"duplicate subJSON '{subRecordName}' in '{recordName}' did not match previously" + 
+                                    $"generated record '{alternateStructure}'.");
+                            }
+                        }
+                        else {
+                            structure.Add(
+                                subRecordName,
+                                Parse(
+                                    streamReader,
+                                    subRecordName,
+                                    ref packages,
+                                    ref structure));
+                        }
+                        lines.Add(GenerateObjectAttribute(subRecordName, isInsideList));
                         break;
                     case '}':
                         // End of object
-                        packages.Add(recordName, localPackages);
+                        packages.TryAdd(recordName, localPackages);
                         return lines;
                     case '"':
                         enclosedInQuotes = !enclosedInQuotes;
@@ -74,6 +91,12 @@ namespace json2record.Services {
                         readAttributeName = false;
                         break;
                     case ',':
+                        if (isInsideList) {
+                            char c;
+                            while ((c = (char) streamReader.Peek()) != ']') { 
+                                streamReader.Read();
+                            }
+                        }
                         readAttributeName = true;
                         currentAttributeName = "";
                         break;
@@ -93,38 +116,44 @@ namespace json2record.Services {
                                     value += c;
                                 }
                                 enclosedInQuotes = !enclosedInQuotes;
+
+                                // Infer datatype from contents.
+                                DateTime dateTimeValue;
+                                if (DateTime.TryParse(value, out dateTimeValue)){
+                                    localPackages.Add("System");
+                                    lines.Add(GenerateDateTimeAttribute(currentAttributeName, isInsideList));
+                                }
+                                else {
+                                    lines.Add(GenerateStringAttribute(currentAttributeName, isInsideList));
+                                }
+                                break;
                             }
                             else {
                                 while(!(new List<char>{',', ' ', '}'}.Contains(c = (char)streamReader.Peek()))) {
                                     value += c;
                                     streamReader.Read();
                                 }
-                            }
 
-                            // Infer datatype from contents.
-                            DateTime dateTimeValue;
-                            int intValue;
-                            float floatValue;
-                            if (DateTime.TryParse(value, out dateTimeValue)){
-                                localPackages.Add("System");
-                                lines.Add(GenerateDateTimeAttribute(currentAttributeName, isInsideList));
+                                // Infer datatype from contents.
+                                bool boolValue;
+                                int intValue;
+                                float floatValue;
+                                if (Boolean.TryParse(value, out boolValue)) {
+                                    lines.Add(GenerateBooleanAttribute(currentAttributeName, isInsideList));
+                                }
+                                else if (Int32.TryParse(value, out intValue)) {
+                                    lines.Add(GenerateIntAttribute(currentAttributeName, isInsideList));
+                                }
+                                else if (float.TryParse(value, out floatValue)) {
+                                    lines.Add(GenerateDoubleAttribute(currentAttributeName, isInsideList));
+                                }
                             }
-                            else if (Int32.TryParse(value, out intValue)) {
-                                lines.Add(GenerateIntAttribute(currentAttributeName, isInsideList));
-                            }
-                            else if (float.TryParse(value, out floatValue)) {
-                                lines.Add(GenerateDoubleAttribute(currentAttributeName, isInsideList));
-                            }
-                            else {
-                                lines.Add(GenerateStringAttribute(currentAttributeName, isInsideList));
-                            } 
                         }
                         break;
                 }
             }
             return lines;
         }
-
 
 
         private string GenerateObjectAttribute(string currentField, bool isInsideList)
@@ -146,6 +175,12 @@ namespace json2record.Services {
             return isInsideList ? 
                 $"        public List<int> {currentField.Camelize()} {{ get; init; }} \n" :
                 $"        public int {currentField.Camelize()} {{ get; init; }} \n";
+        }
+        private string GenerateBooleanAttribute(string currentField, bool isInsideList)
+        {
+            return isInsideList ? 
+                $"        public List<bool> {currentField.Camelize()} {{ get; init; }} \n" :
+                $"        public bool {currentField.Camelize()} {{ get; init; }} \n";
         }
         private string GenerateDoubleAttribute(string currentField, bool isInsideList)
         {
