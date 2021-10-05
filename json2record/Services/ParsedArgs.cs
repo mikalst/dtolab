@@ -9,5 +9,6 @@ namespace json2record.Services
         public string resolvedInputPath { get; init; }
         public string outputPath { get; init; }
         public string namespaceArg { get; init; }
+        public bool consolidateSubRecords { get; init; }
     }
 }

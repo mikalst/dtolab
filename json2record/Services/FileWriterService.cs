@@ -9,7 +9,7 @@ namespace json2record.Services {
         public FileWriterService() {
         }
 
-        public bool WriteFile(string key, ParsedArgs parsedArgs, SortedSet<string> filePackages, List<string> fileLines) {
+        public bool WriteFile(string key, ParsedArgs parsedArgs, SortedSet<string> filePackages, HashSet<string> fileLines) {
             var output = "";
             foreach (var s in filePackages) {
                 output += $"using {s}; \n";
@@ -30,7 +30,7 @@ namespace json2record.Services {
             return true;
         }
 
-        private string GenerateDocument(string recordName, List<string> lines)
+        private string GenerateDocument(string recordName, HashSet<string> lines)
         {
             var innerDocument = "";
             innerDocument += $"    public record {recordName.Pascalize()} {{ \n";

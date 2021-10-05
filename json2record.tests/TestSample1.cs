@@ -2,7 +2,7 @@ using System;
 using Xunit;
 using System.Text.Json;
 using System.IO;
-using json2record.tests.DTOs;
+using json2record.tests.sample1.DTOs;
 using System.Globalization;
 using System.Text;
 
