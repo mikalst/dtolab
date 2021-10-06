@@ -3,10 +3,13 @@
     "projectCD": "X",
     "lines": [
         {
-            "operation": "Issue"
+            "operation": "Issue",
+            "nestedList": []
         },
         {
-            "operation": "Issue"
+            "operation": "Issue",
+            "nestedList": []
         }
-    ]
+    ],
+    "lastCheck": "Y"
 }

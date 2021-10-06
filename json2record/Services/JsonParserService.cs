@@ -91,10 +91,15 @@ namespace json2record.Services {
                         readAttributeName = false;
                         break;
                     case ',':
-                        if (isInsideList) {
+                        if (isInsideList)
+                        {
+                            // Flush remaining entries of object already parsed.
                             char c;
-                            while ((c = (char) streamReader.Peek()) != ']') { 
-                                streamReader.Read();
+                            var listCounter = 0;
+                            while ((c = (char) streamReader.Peek()) != ']' || listCounter > 0) { 
+                                c = (char) streamReader.Read();
+                                if (c == '[') { listCounter++; }
+                                else if (c == ']') { listCounter --; }
                             }
                         }
                         readAttributeName = true;
