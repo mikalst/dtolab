@@ -449,5 +449,4 @@ $RECYCLE.BIN/
 
 ##
 json2record/DTOs/**/*.cs
-json2record.tests/DTOs/**/*.cs
 !json2record.tests/DTOs/placeholder.txt
