@@ -19,7 +19,7 @@ namespace JsonToRecord
                 .InformationalVersion
                 .ToString();
 
-            if (args.Length>=3 && args.Length <= 4)
+            if (args.Length==3)
             {
                 var parsedArgs = new ArgParserService().Parse(args);
 
@@ -58,11 +58,11 @@ namespace JsonToRecord
                 return;
             }
             else {
-                Console.WriteLine("[ERROR] Program takes three and exactly two input parameters.");
-                Console.WriteLine($"writefile v{assemblyVersion}");
+                Console.WriteLine("[ERROR] Program takes three and exactly three input parameters.");
+                Console.WriteLine($"json2record v{assemblyVersion}");
                 Console.WriteLine("-------------");
                 Console.WriteLine("\nUsage:");
-                Console.WriteLine("json2record <filePath> <outputDirectory> <namespace> <consolidateSubrecords>");
+                Console.WriteLine("json2record <filePath> <outputDirectory> <namespace>");
 
             }
         }

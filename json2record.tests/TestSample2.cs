@@ -3,7 +3,6 @@ using Xunit;
 using System.Text.Json;
 using System.IO;
 using json2record.tests.sample2.DTOs;
-using System.Globalization;
 using System.Text;
 
 namespace json2record.tests
