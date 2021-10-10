@@ -28,8 +28,10 @@ jobs:
         path: json2record/nupkg/
     - name: Install json2record
       run: dotnet tool install --global --add-source json2record/nupkg/ json2record
+    - name: Run json2record
+      run: dotnet restore json2record.tests
     - name: Run Tests
-      run: dotnet test json2record.tests --logger trx --configuration Release --verbosity normal --results-directory tests
+      run: dotnet test json2record.tests --logger trx --no-restore --configuration Release --verbosity normal --results-directory tests
     - name: Upload dotnet test results
       uses: actions/upload-artifact@v2
       with:
