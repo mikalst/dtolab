@@ -30,7 +30,7 @@ namespace json4record.tests
             Assert.Equal("Issue", _sample.lines.First().operation);
         }
 
-                [Fact]
+        [Fact]
         public void TestMultipleIdenticallyNamedSubJSON_HandlesEmptyLists()
         {
             Assert.Equal("Y", _sample.lastCheck);

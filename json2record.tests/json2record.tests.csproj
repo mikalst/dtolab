@@ -27,11 +27,13 @@
     <Exec Command="dotnet ../json2record/bin/Debug/net5.0/json2record.dll samples/sample1.json DTOs/sample1 json2record.tests.sample1.DTOs" />
     <Exec Command="dotnet ../json2record/bin/Debug/net5.0/json2record.dll samples/sample2.json DTOs/sample2 json2record.tests.sample2.DTOs" />
     <Exec Command="dotnet ../json2record/bin/Debug/net5.0/json2record.dll samples/sample4.json DTOs/sample4 json2record.tests.sample4.DTOs" />
+    <Exec Command="dotnet ../json2record/bin/Debug/net5.0/json2record.dll samples/sample5.json DTOs/sample5 json2record.tests.sample5.DTOs" />
   </Target>
   <Target Name="json2record" AfterTargets="Restore" Condition=" '$(Configuration)' == 'Release'">
     <Exec Command="json2record samples/sample1.json DTOs/sample1 json2record.tests.sample1.DTOs" />
     <Exec Command="json2record samples/sample2.json DTOs/sample2 json2record.tests.sample2.DTOs" />
     <Exec Command="json2record samples/sample4.json DTOs/sample4 json4record.tests.sample4.DTOs" />
+    <Exec Command="json2record samples/sample5.json DTOs/sample5 json4record.tests.sample5.DTOs" />
   </Target>
 
 </Project>

@@ -26,6 +26,7 @@ namespace json2record.Services {
 
             var readAttributeName = true;
             string currentAttributeName = "";
+            string currentValue = "";
 
             bool isInsideList = false;
             bool enclosedInQuotes = false;
@@ -69,14 +70,33 @@ namespace json2record.Services {
                         packages.TryAdd(recordName, localPackages);
                         return lines;
                     case '"':
-                        enclosedInQuotes = !enclosedInQuotes;
                         if (readAttributeName) {
                             char c;
-                            while ((c = (char) streamReader.Peek()) != '"') {
+                            while ((c = (char) streamReader.Read()) != '"') {
                                 currentAttributeName += c;
-                                streamReader.Read();
                             }
                             readAttributeName = false;
+                        }
+                        else {
+                            char c;
+                            while ((c = (char) streamReader.Read()) != '"') { 
+                                currentValue += c;
+                                if (c == '\\') {
+                                    currentValue += (char) streamReader.Read();
+                                }
+                            }
+
+                            // Infer datatype from contents.
+                            DateTime dateTimeValue;
+                            if (DateTime.TryParse(currentValue, out dateTimeValue)){
+                                localPackages.Add("System");
+                                lines.Add(GenerateDateTimeAttribute(currentAttributeName, isInsideList));
+                                currentValue = "";
+                            }
+                            else {
+                                lines.Add(GenerateStringAttribute(currentAttributeName, isInsideList));
+                                currentValue = "";
+                            }
                         }
                         break;
                     case '[':
