@@ -19,7 +19,11 @@
 
   <ItemGroup>
     <PackageReference Include="humanizer" Version="2.11.10" />
-    <None Include="../README.md" Pack="true" PackagePath="\"/>
+    <None Include="../README.md" Pack="true" PackagePath="\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\json2record.common\json2record.common.csproj" />
   </ItemGroup>
 
 </Project>

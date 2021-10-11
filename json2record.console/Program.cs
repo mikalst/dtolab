@@ -4,7 +4,8 @@ using System.IO;
 using System.Reflection;
 using System.Text;
 using Humanizer;
-using json2record.Exceptions;
+using json2record.common.Exceptions;
+using json2record.common.Services;
 using json2record.Services;
 
 namespace JsonToRecord

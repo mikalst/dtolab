@@ -5,10 +5,10 @@ using System.Globalization;
 using Humanizer;
 using System;
 using System.Text;
-using json2record.Exceptions;
+using json2record.common.Exceptions;
 using System.Linq;
 
-namespace json2record.Services {
+namespace json2record.common.Services {
     public class JsonParserService {
         private readonly UTF8Encoding _encoding;
         public JsonParserService() {
