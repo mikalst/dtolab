@@ -49,7 +49,7 @@ namespace json2record.func
 
             var response = HttpResponseData.CreateResponse(req);
             response.WriteString(JsonSerializer.Serialize(output));
-            return response;
+            return await Task.FromResult(response);
         }
     }
 }
