@@ -7,6 +7,7 @@ using System.Globalization;
 using System.Text;
 using System.Collections.Generic;
 using json2record.common.Exceptions;
+using json2record.common;
 
 namespace json2record.tests
 {
@@ -18,14 +19,13 @@ namespace json2record.tests
         [Fact]
         public void TestMultipleIdenticallyNamedSubJSON_DifferentSubJSON_ThrowsNonMatchingDuplicateSubrecordsException()
         {
-            var structure = new Dictionary<string, HashSet<string>>();
-            var packages = new Dictionary<string, SortedSet<string>>();
+            var files = new Dictionary<string, FileModel>();
             // Open the stream and read it back.
             using (StreamReader sr = File.OpenText(@"../../../samples/sample3.json"))
             {
                 var jsonParser = new JsonParserService();
                 Assert.Throws<NonMatchingDuplicateSubrecordsException>(
-                    () => jsonParser.Parse(sr, "sample3", ref packages, ref structure)
+                    () => jsonParser.Parse(sr, "sample3", ref files)
                 );
             };
         }

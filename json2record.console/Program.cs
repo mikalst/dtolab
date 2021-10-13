@@ -4,6 +4,7 @@ using System.IO;
 using System.Reflection;
 using System.Text;
 using Humanizer;
+using json2record.common;
 using json2record.common.Exceptions;
 using json2record.common.Services;
 using json2record.Services;
@@ -33,18 +34,20 @@ namespace JsonToRecord
 
                 try
                 {
-                    var structure = new Dictionary<string, HashSet<string>>();
-                    var packages = new Dictionary<string, SortedSet<string>>();
+                    var files = new Dictionary<string, FileModel>();
                     // Open the stream and read it back.
                     using (StreamReader sr = File.OpenText(parsedArgs.resolvedInputPath))
                     {
-                        var lines = new JsonParserService().Parse(sr, parsedArgs.recordName, ref packages, ref structure);
+                        var spec = new JsonParserService().Parse(
+                            sr,
+                            parsedArgs.recordName,
+                            ref files);
                     }
 
                     var fileWriterService = new FileWriterService();
-                    foreach (var key in structure.Keys) {
+                    foreach (var key in files.Keys) {
                         // Create the file, or overwrite if the file exists.
-                        fileWriterService.WriteFile(key, parsedArgs, packages[key], structure[key]);
+                        fileWriterService.WriteFile(key, parsedArgs, files[key].packages, files[key].attributes);
                     }
                 }
                 catch (NonMatchingDuplicateSubrecordsException nmex)

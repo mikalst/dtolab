@@ -15,14 +15,10 @@ namespace json2record.common.Services {
             _encoding = new UTF8Encoding(true);
         }
 
-        public HashSet<string> Parse(
+        public FileModel Parse(
             StreamReader streamReader,
             string recordName,
-            ref Dictionary<string, SortedSet<string>> packages,
-            ref Dictionary<string, HashSet<string>> structure) {
-            
-            var lines = new HashSet<string>();
-            var localPackages = new SortedSet<string>();
+            ref Dictionary<string, FileModel> files) {
 
             var readAttributeName = true;
             string currentAttributeName = "";
@@ -30,6 +26,13 @@ namespace json2record.common.Services {
 
             bool isInsideList = false;
             bool enclosedInQuotes = false;
+            
+            var currentFile = new FileModel()
+            {
+                name = String.IsNullOrWhiteSpace(currentAttributeName) ? recordName : currentAttributeName,
+                attributes = new List<AttributeModel>(),
+                packages = new List<string>()
+            };
 
             int cInt;
             char cChar;
@@ -40,14 +43,13 @@ namespace json2record.common.Services {
                     case '{':
                         // If subJSON already registered
                         var subRecordName = String.IsNullOrWhiteSpace(currentAttributeName) ? recordName : currentAttributeName;
-                        if(structure.ContainsKey(subRecordName)) {
+                        if(files.ContainsKey(subRecordName)) {
                             Console.WriteLine($"Found duplicate subJSON with key '{subRecordName}'.");
                             var alternateStructure = Parse(
                                 streamReader,
                                 subRecordName,
-                                ref packages,
-                                ref structure);
-                            if(!alternateStructure.SetEquals(structure.GetValueOrDefault(subRecordName)))
+                                ref files);
+                            if(!(alternateStructure == files.GetValueOrDefault(subRecordName)))
                             {
                                 throw new NonMatchingDuplicateSubrecordsException(
                                     $"duplicate subJSON '{subRecordName}' in '{recordName}' did not match previously" + 
@@ -55,20 +57,22 @@ namespace json2record.common.Services {
                             }
                         }
                         else {
-                            structure.Add(
+                            files.Add(
                                 subRecordName,
                                 Parse(
                                     streamReader,
                                     subRecordName,
-                                    ref packages,
-                                    ref structure));
+                                    ref files));
                         }
-                        lines.Add(GenerateObjectAttribute(subRecordName, isInsideList));
+                        currentFile.attributes.Add(new AttributeModel {
+                            name = subRecordName,
+                            datatype = "object",
+                            isList = isInsideList
+                        });
                         break;
                     case '}':
                         // End of object
-                        packages.TryAdd(recordName, localPackages);
-                        return lines;
+                        return currentFile;
                     case '"':
                         if (readAttributeName) {
                             char c;
@@ -89,19 +93,27 @@ namespace json2record.common.Services {
                             // Infer datatype from contents.
                             DateTime dateTimeValue;
                             if (DateTime.TryParse(currentValue, out dateTimeValue)){
-                                localPackages.Add("System");
-                                lines.Add(GenerateDateTimeAttribute(currentAttributeName, isInsideList));
+                                currentFile.packages.Add("System");
+                                currentFile.attributes.Add(new AttributeModel {
+                                    name = currentAttributeName,
+                                    datatype = "datetime",
+                                    isList = isInsideList
+                                });
                                 currentValue = "";
                             }
                             else {
-                                lines.Add(GenerateStringAttribute(currentAttributeName, isInsideList));
+                                currentFile.attributes.Add(new AttributeModel {
+                                    name = currentAttributeName,
+                                    datatype = "string",
+                                    isList = isInsideList
+                                });
                                 currentValue = "";
                             }
                         }
                         break;
                     case '[':
                         // List
-                        localPackages.Add("System.Collections.Generic");
+                        currentFile.packages.Add("System.Collections.Generic");
                         isInsideList = true;
                         break;
                     case ']':
@@ -145,11 +157,19 @@ namespace json2record.common.Services {
                                 // Infer datatype from contents.
                                 DateTime dateTimeValue;
                                 if (DateTime.TryParse(value, out dateTimeValue)){
-                                    localPackages.Add("System");
-                                    lines.Add(GenerateDateTimeAttribute(currentAttributeName, isInsideList));
+                                    currentFile.packages.Add("System");
+                                    currentFile.attributes.Add(new AttributeModel {
+                                        name = currentAttributeName,
+                                        datatype = "datetime",
+                                        isList = isInsideList
+                                    });
                                 }
                                 else {
-                                    lines.Add(GenerateStringAttribute(currentAttributeName, isInsideList));
+                                    currentFile.attributes.Add(new AttributeModel {
+                                        name = currentAttributeName,
+                                        datatype = "string",
+                                        isList = isInsideList
+                                    });
                                 }
                                 break;
                             }
@@ -164,61 +184,32 @@ namespace json2record.common.Services {
                                 int intValue;
                                 float floatValue;
                                 if (Boolean.TryParse(value, out boolValue)) {
-                                    lines.Add(GenerateBooleanAttribute(currentAttributeName, isInsideList));
+                                    currentFile.attributes.Add(new AttributeModel {
+                                        name = currentAttributeName,
+                                        datatype = "boolean",
+                                        isList = isInsideList
+                                    });
                                 }
                                 else if (Int32.TryParse(value, out intValue)) {
-                                    lines.Add(GenerateIntAttribute(currentAttributeName, isInsideList));
+                                    currentFile.attributes.Add(new AttributeModel {
+                                        name = currentAttributeName,
+                                        datatype = "integer",
+                                        isList = isInsideList
+                                    });
                                 }
                                 else if (float.TryParse(value, out floatValue)) {
-                                    lines.Add(GenerateDoubleAttribute(currentAttributeName, isInsideList));
+                                    currentFile.attributes.Add(new AttributeModel {
+                                        name = currentAttributeName,
+                                        datatype = "double",
+                                        isList = isInsideList
+                                    });
                                 }
                             }
                         }
                         break;
                 }
             }
-            return lines;
-        }
-
-
-        private string GenerateObjectAttribute(string currentField, bool isInsideList)
-        {
-            return isInsideList? 
-                $"        public List<{currentField.Pascalize()}> {currentField.Camelize()} {{ get; init; }} \n" :
-                $"        public {currentField.Pascalize()} {currentField.Camelize()} {{ get; init; }} \n";
-
-        }
-
-        private string GenerateStringAttribute(string currentField, bool isInsideList)
-        {
-            return isInsideList? 
-                $"        public List<string> {currentField.Camelize()} {{ get; init; }} \n" :
-                $"        public string {currentField.Camelize()} {{ get; init; }} \n";
-        }
-        private string GenerateIntAttribute(string currentField, bool isInsideList)
-        {
-            return isInsideList ? 
-                $"        public List<int> {currentField.Camelize()} {{ get; init; }} \n" :
-                $"        public int {currentField.Camelize()} {{ get; init; }} \n";
-        }
-        private string GenerateBooleanAttribute(string currentField, bool isInsideList)
-        {
-            return isInsideList ? 
-                $"        public List<bool> {currentField.Camelize()} {{ get; init; }} \n" :
-                $"        public bool {currentField.Camelize()} {{ get; init; }} \n";
-        }
-        private string GenerateDoubleAttribute(string currentField, bool isInsideList)
-        {
-            return isInsideList ? 
-                $"        public List<double> {currentField.Camelize()} {{ get; init; }} \n" :
-                $"        public double {currentField.Camelize()} {{ get; init; }} \n";
-        }
-
-        private string GenerateDateTimeAttribute(string currentField, bool isInsideList)
-        {
-            return isInsideList ? 
-                $"        public List<DateTime> {currentField} {{ get; init; }} \n" :
-                $"        public DateTime {currentField} {{ get; init; }} \n";
+            return currentFile;
         }
     }
 }
