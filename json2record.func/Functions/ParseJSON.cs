@@ -22,7 +22,6 @@ namespace json2record.func
             string name)
         {
             var log = executionContext.GetLogger("ParseJSON");
-            log.LogInformation("C# HTTP trigger function processed a request.");
 
             name = name ?? "dto";
 
@@ -46,6 +45,9 @@ namespace json2record.func
             var response = HttpResponseData.CreateResponse(req);
             response.WriteString(JsonSerializer.Serialize(output));
             response.Headers.Add("Content-Type", new []{ "application/json" });
+            
+            log.LogInformation("C# HTTP trigger successfully processed a request.");
+
             return await Task.FromResult(response);
         }
     }
