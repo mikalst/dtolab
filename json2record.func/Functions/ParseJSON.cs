@@ -30,17 +30,13 @@ namespace json2record.func
 
             FileModel file;
             using (var sr = new StreamReader(req.Body))
-            {
-                file = new JsonParserService().Parse(
-                    new StreamReader(req.Body),
-                    name,
-                    ref files
-            );
-
+                {
+                    file = new JsonParserService().Parse(
+                        new StreamReader(req.Body),
+                        name,
+                        ref files
+                );
             }
-            string responseMessage = string.IsNullOrEmpty(name)
-                ? "This HTTP triggered function executed successfully. Pass a name in the query string or in the request body for a personalized response."
-                : $"Hello, {name}. This HTTP triggered function executed successfully.";
 
             var output = new OutputDTO() {
                 name = name,
@@ -49,6 +45,7 @@ namespace json2record.func
 
             var response = HttpResponseData.CreateResponse(req);
             response.WriteString(JsonSerializer.Serialize(output));
+            response.Headers.Add("Content-Type", new []{ "application/json" });
             return await Task.FromResult(response);
         }
     }
