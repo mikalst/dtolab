@@ -8,7 +8,7 @@ on:
 
 jobs:
   terraform:
-    name: 'Terraform'
+    name: 'Deploy static web app'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
@@ -20,7 +20,7 @@ jobs:
           repo_token: ${{ secrets.GITHUB_TOKEN }} # Used for Github integrations (i.e. PR comments)
           action: "upload"
           ###### Repository/Build Configurations - These values can be configured to match your app requirements. ######
-          app_location: "/json2record.func" # App source code path
-          api_location: "/json2record.swa" # Api source code path - optional
+          app_location: "/json2record.swa" # App source code path
+          # api_location: "/json2record.func" # Api source code path - optional
           output_location: "dist" # Built app content directory - optional
           ###### End of Repository/Build Configurations ######
