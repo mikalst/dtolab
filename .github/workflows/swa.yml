@@ -6,12 +6,36 @@ on:
       - dev
       - master
 
+env:
+  AZURE_FUNCTIONAPP_NAME: json2record.func  # set this to your application's name
+  AZURE_FUNCTIONAPP_PACKAGE_PATH: './json2record.func'    # set this to the path to your web app project, defaults to the repository root
+  DOTNET_VERSION: '5.0.0'              # set this to the dotnet version to use
+
 jobs:
-  terraform:
+  deploy:
     name: 'Deploy static web app'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@master
+      - uses: actions/checkout@v2
+      - name: Setup DotNet ${{ env.DOTNET_VERSION }} Environment
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+
+      - name: 'Resolve Project Dependencies Using Dotnet'
+        shell: bash
+        run: |
+          pushd './${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}'
+          dotnet build --configuration Release --output ./output
+          popd
+      - name: 'Run Azure Functions Action'
+        uses: Azure/functions-action@v1
+        id: fa
+        with:
+          app-name: ${{ env.AZURE_FUNCTIONAPP_NAME }}
+          package: '${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/output'
+          publish-profile: ${{ secrets.FUNC_PUBLISH_PROFILE }}
+
       - name: Deploy static web app
         id: deploy-swa
         uses: Azure/static-web-apps-deploy@v1
