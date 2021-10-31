@@ -1,7 +1,7 @@
 <template>
   <div class="outer">
   <DisplayEntity 
-    v-for="value in files" :key="value.name" 
+    v-for="value in files" :key="value" 
     :file="value"/>
   </div>
 </template>
@@ -23,11 +23,11 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .outer {
-  width: 33.3%;
+  width: 48%;
   line-height: 1.2;
   position: absolute;
   height: 90%;
-  left: 33.3%;
+  left: 50%;
   top: 5%;
   right: 0;
   bottom: 0;

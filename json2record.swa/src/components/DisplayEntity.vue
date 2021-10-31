@@ -1,19 +1,32 @@
 <template>
-  <div class="header">
-    {{file.name}}
-  </div>
-  <ul> 
-  <li v-for="row in file.attributes" :key="row.name">
-    {{row.name}},{{row.datatype}},{{row.isList}}
-  </li>
-  </ul>
+  <CodeEditor 
+    :value="file" 
+    :read_only="true"
+    :language="'cpp'"
+    :languages="languages()"
+    :autofocus="true"
+    :width="'100%'"
+    :border_radius="'0px'"
+    ></CodeEditor>
 </template>
 
 <script>
+import CodeEditor from 'simple-code-editor';
+
 export default {
   name: 'DisplayEntity',
+  components: {
+    CodeEditor
+  },
   props: {
     file: {} 
+  },
+  methods: {
+    languages: function () {
+      return [
+        ['chsarp', 'c#']
+      ];
+    }
   }
 }
 </script>
@@ -21,7 +34,6 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 div {
-  margin-left: 3%;
   text-align: left;
 }
 ul {

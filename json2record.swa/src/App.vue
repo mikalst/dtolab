@@ -1,8 +1,8 @@
 <template>
-  <Banner />
+  <Banner @download="download" />
   <body> 
     <main>
-      <TextArea 
+      <InputArea 
         @input-updated="callapi"
         />
       <DisplayArea v-bind:files="files" />
@@ -11,25 +11,26 @@
 </template>
 
 <script>
-import TextArea from './components/TextArea.vue'
+import InputArea from './components/InputArea.vue'
 import DisplayArea from './components/DisplayArea.vue'
 import Banner from './components/Banner.vue'
 
 export default {
   name: 'App',
   components: {
-    TextArea,
+    InputArea,
     DisplayArea,
     Banner
   },
   data: function() {
     return {
+      "response": {},
       "files": {} 
     };
   },
   methods: {
     callapi: function(input) {
-      fetch("http://localhost:7071/api/parse", {
+      fetch("http://localhost:7071/api/parse/csharp", {
         "method": "POST",
         "body": input
       })
@@ -42,10 +43,25 @@ export default {
         })
       .then(response => {
         console.log(response);
+        this.response = response;
         this.files = response.files;
       })
       .catch(err => {
         console.error(err);
+      });
+    },
+    download: function() {
+      console.log(Object.keys(this.files).length);
+      Object.keys(this.files).forEach((key, index) => {
+        console.log(key, index);
+        var fileURL = window.URL.createObjectURL(new Blob([this.files[key]]));
+        var fileLink = document.createElement('a');
+
+        fileLink.href = fileURL;
+        fileLink.setAttribute('download', key+'.cs');
+        document.body.appendChild(fileLink);
+
+        fileLink.click();
       });
     }
   }

@@ -1,9 +1,8 @@
 <template>
-  <section v-on:keyup="onChange" class="top-section"> 
+  <section v-on:keyup="onChange" class="outer"> 
   <CodeEditor 
     v-model="msg"
     :autofocus="true"
-    :hide_header="true"
     :width="'100%'"
     :height="'100%'"
     :border_radius="'0px'"
@@ -16,7 +15,7 @@
 import CodeEditor from 'simple-code-editor';
 
 export default {
-  name: 'TextArea',
+  name: 'InputArea',
   components: {
     CodeEditor
   },
@@ -35,10 +34,12 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.top-section {
-  width: 33.3%;
+.outer {
+  width: 48%;
   line-height: 1.2;
   position: absolute;
+  border-color: var(--border-color);
+  border-width: 50px;
   height: 90%;
   left: 0;
   top: 5%;
