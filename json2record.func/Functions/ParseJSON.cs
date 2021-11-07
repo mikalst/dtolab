@@ -7,23 +7,23 @@ using System.Threading.Tasks;
 using json2record.common;
 using json2record.common.Services;
 using json2record.func.DTOs;
-using Microsoft.Azure.Functions.Worker;
-using Microsoft.Azure.Functions.Worker.Http;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Azure.WebJobs;
+using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.Extensions.Logging;
 
 namespace json2record.func
 {
     public static class ParseJSON
     {
-        [Function("parse")]
-        public static async Task<HttpResponseData> Run(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = null)] HttpRequestData req,
-            FunctionContext executionContext,
-            string name)
+        [FunctionName("parse")]
+        public static Task<IActionResult> Run(
+            [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = null)] HttpRequest req,
+            ExecutionContext executionContext,
+            ILogger log)
         {
-            var log = executionContext.GetLogger("ParseJSON");
-
-            name = name ?? "dto";
+            var name = "dto";
 
             var files = new Dictionary<string, FileModel>();
 
@@ -42,13 +42,12 @@ namespace json2record.func
                 files = files
             };
 
-            var response = HttpResponseData.CreateResponse(req);
-            response.WriteString(JsonSerializer.Serialize(output));
-            response.Headers.Add("Content-Type", new []{ "application/json" });
-            
             log.LogInformation("C# HTTP trigger successfully processed a request.");
 
-            return await Task.FromResult(response);
+            var response = new OkObjectResult(output);
+            
+
+            return Task.FromResult<IActionResult>(new OkObjectResult(output));
         }
     }
 }

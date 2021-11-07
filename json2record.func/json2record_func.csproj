@@ -1,14 +1,11 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
-    <AzureFunctionsVersion>v3</AzureFunctionsVersion>
-    <OutputType>Exe</OutputType>
+    <TargetFramework>net6.0</TargetFramework>
+    <AzureFunctionsVersion>v4</AzureFunctionsVersion>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Humanizer" Version="2.11.10" />
-    <PackageReference Include="microsoft.azure.functions.worker" Version="1.5.2" />
-    <PackageReference Include="microsoft.azure.functions.worker.extensions.http" Version="3.0.13" />
-    <PackageReference Include="microsoft.azure.functions.worker.sdk" Version="1.0.4" />
+    <PackageReference Include="microsoft.net.sdk.functions" Version="4.0.1" />
   </ItemGroup>
   <ItemGroup>
     <None Update="host.json">

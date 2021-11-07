@@ -1,13 +1,15 @@
 <template>
-  <Banner @download="download" />
-  <body> 
-    <main>
-      <InputArea 
-        @input-updated="callapi"
-        />
-      <DisplayArea v-bind:files="files" />
-    </main>
-  </body>
+  <div>
+    <Banner @download="download" />
+    <body> 
+      <main>
+        <InputArea 
+          @input-updated="startTimer"
+          />
+        <DisplayArea v-bind:files="response.files" />
+      </main>
+    </body>
+    </div>
 </template>
 
 <script>
@@ -24,13 +26,40 @@ export default {
   },
   data: function() {
     return {
-      "response": {},
-      "files": {} 
+      response: {},
+      oldresponse: {},
+      input: null,
+      timePassed: 0,
+      timerInteral: null
     };
   },
   methods: {
+    startTimer(input) {
+      this.input = input;
+      if (this.timerInteral) {
+        this.timePassed = 0;
+      }
+      else {
+        this.timerInteral = setInterval(() => { 
+          if (this.timePassed == 500) {
+            this.stopTimer();
+            this.timePassed = 0;
+            this.callapi(this.input);
+          }
+          else {
+            this.timePassed += 100;
+          }
+        }, 100);
+      }
+    },
+    stopTimer() {
+      clearInterval(this.timerInteral);
+      this.timerInteral = null;
+    },
     callapi: function(input) {
-      fetch("http://localhost:7071/api/parse/csharp", {
+      var url = process.env.VUE_APP_PATH+"csharp";
+      console.log(`Fetching from ${url}`);
+      fetch(url, {
         "method": "POST",
         "body": input
       })

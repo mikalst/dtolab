@@ -6,11 +6,7 @@ namespace json2record.func {
         public static void Main()
         {
             var host = new HostBuilder()
-                .ConfigureFunctionsWorkerDefaults()
-                .ConfigureServices(s => 
-                {
-
-                })
+                .ConfigureServices(c => {})
                 .Build();
  
             host.Run();
