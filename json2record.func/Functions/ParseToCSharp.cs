@@ -31,7 +31,7 @@ namespace json2record.func
             using (var sr = new StreamReader(req.Body))
                 {
                     file = new JsonParserService().Parse(
-                        new StreamReader(req.Body),
+                        sr,
                         name,
                         ref files
                 );
