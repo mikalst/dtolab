@@ -1,5 +1,5 @@
 <template>
-  <section v-on:keyup="onChange" class="outer"> 
+  <section v-on:keyup="onChange">
   <CodeEditor 
     v-model="msg"
     :autofocus="true"
@@ -34,17 +34,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.outer {
-  width: 48%;
-  line-height: 1.2;
-  position: absolute;
-  border-color: var(--border-color);
-  border-width: 50px;
-  height: 90%;
-  left: 0;
-  top: 5%;
-  right: 0;
-  bottom: 0;
-  overflow: auto;
+section {
+  line-height: 1.0;
 }
 </style>

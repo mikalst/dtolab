@@ -1,5 +1,5 @@
 <template>
-  <header class="banner">
+  <header>
     <h1>Json2Struct</h1>
     <button v-on:click="download"> <h1> Download </h1> </button>
   </header>
@@ -18,25 +18,22 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.banner{
-  width: 100%;
+header{
   text-align: left;
-  padding-top: .25%;
-  padding-bottom: 0.25%;
+  display: flex;
   color: var(--header-text-color);
   background-color: var(--header-color);
-  position: relative;
-  display: flex;
-  align-items: center;
+  padding: 0.5vh;
 }
 h1 {
-  margin-left: 0.5%;
+  flex: 1 1 auto;
   font-size: 100%;
-  width: 91%;
 }
 button {
+  flex: 0 1 auto;
   align-content: right;
-  margin-right: 0.5%;
-  width: 8%;
+  background-color: var(--header-color);
+  border: 2px solid var(--header-text-color);
+  color: var(--header-text-color);
 }
 </style>

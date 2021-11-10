@@ -1,15 +1,16 @@
 <template>
-  <div>
-    <Banner @download="download" />
+  <html>
+    <Banner @download="download" class="header"/>
     <body> 
-      <main>
-        <InputArea 
-          @input-updated="startTimer"
-          />
-        <DisplayArea v-bind:files="response.files" />
-      </main>
+      <InputArea 
+        @input-updated="startTimer"
+        class="left"
+        />
+      <DisplayArea 
+        v-bind:files="response.files" 
+        class="right"/>
     </body>
-    </div>
+  </html>
 </template>
 
 <script>
@@ -27,7 +28,6 @@ export default {
   data: function() {
     return {
       response: {},
-      oldresponse: {},
       input: null,
       timePassed: 0,
       timerInteral: null
@@ -66,8 +66,9 @@ export default {
       .then(response => { 
         if(response.ok){
             return response.json()    
-        } else{
-            alert("Server returned " + response.status + " : " + response.statusText);
+        } 
+        else{
+            console.error("Server returned " + response.status + " : " + response.statusText);
         }                
         })
       .then(response => {
@@ -103,26 +104,42 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
-  line-height: 1.15;
+  height: 100%;
+  width: 100%;
   text-align: center;
   color: #2c3e50;
 }
 :root {
     --highlight-color: #efefef;
-    --header-color: burlywood;
-    --header-text-color: #000;
+    --header-color: #abb2bf;
+    --header-text-color: #282c34;
     --border-color: #aaa;
     --footer-color: #eee;
 }
-body {
-  margin: 0;
+html {
+  height: 100%;
   display: flex;
   flex-direction: column;
+  padding-top: 0;
+  margin-top: 0;
+}
+.header {
+  flex: 0 1 auto;
+}
+body {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: row;
   width: 100%;
   height: 100%;
+  margin: 0;
 }
-main {
-  display: flex;
-  flex: 1 0 0;
+.left {
+  width: 50%;
+  flex: 0 1 auto;
+}
+.right {
+  width: 50%;
+  flex: 0 1 auto;
 }
 </style>

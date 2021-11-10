@@ -1,9 +1,9 @@
 <template>
-  <div class="outer">
+  <section>
   <DisplayEntity 
     v-for="value in files" :key="value" 
     :file="value"/>
-  </div>
+  </section>
 </template>
 
 <script>
@@ -22,15 +22,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.outer {
-  width: 48%;
-  line-height: 1.2;
-  position: absolute;
-  height: 90%;
-  left: 50%;
-  top: 5%;
-  right: 0;
-  bottom: 0;
-  overflow: auto;
+section {
+  line-height: 1.0;
 }
 </style>
