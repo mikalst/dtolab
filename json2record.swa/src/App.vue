@@ -137,9 +137,11 @@ body {
 .left {
   width: 50%;
   flex: 0 1 auto;
+  overflow: scroll;
 }
 .right {
   width: 50%;
   flex: 0 1 auto;
+  overflow: scroll;
 }
 </style>

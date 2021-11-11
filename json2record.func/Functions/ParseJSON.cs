@@ -5,6 +5,7 @@ using System.Net;
 using System.Text.Json;
 using System.Threading.Tasks;
 using json2record.common;
+using json2record.common.Exceptions;
 using json2record.common.Services;
 using json2record.func.DTOs;
 using Microsoft.AspNetCore.Http;
@@ -29,12 +30,17 @@ namespace json2record.func
 
             FileModel file;
             using (var sr = new StreamReader(req.Body))
-                {
+            {
+                try {
                     file = new JsonParserService().Parse(
                         new StreamReader(req.Body),
                         name,
                         ref files
-                );
+                    );
+                }
+                catch (NonMatchingDuplicateSubrecordsException exception) {
+                    log.LogInformation("Something went wrong during parsing '{Exception}'", exception);
+                }
             }
 
             var output = new OutputDTO() {

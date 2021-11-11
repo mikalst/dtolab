@@ -31,7 +31,7 @@ namespace json2record.common.Services {
             {
                 name = String.IsNullOrWhiteSpace(currentAttributeName) ? recordName : currentAttributeName,
                 attributes = new List<AttributeModel>(),
-                packages = new List<string>()
+                packages = new HashSet<string>()
             };
 
             int cInt;
@@ -51,9 +51,11 @@ namespace json2record.common.Services {
                                 ref files);
                             if(!(alternateStructure == files.GetValueOrDefault(subRecordName)))
                             {
+                                Console.Write(JsonSerializer.Serialize(alternateStructure));
+                                Console.Write(JsonSerializer.Serialize(files.GetValueOrDefault(subRecordName)));
                                 throw new NonMatchingDuplicateSubrecordsException(
-                                    $"duplicate subJSON '{subRecordName}' in '{recordName}' did not match previously" + 
-                                    $"generated record '{alternateStructure}'.");
+                                    $"duplicate subJSON '{subRecordName}' in '{recordName}' did not match previously " + 
+                                    $"generated record '{alternateStructure.name}'.");
                             }
                         }
                         else {
