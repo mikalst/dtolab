@@ -1,39 +1,63 @@
 using System.Collections.Generic;
+using System.Linq;
 using Humanizer;
+using json2record.common.Constans;
 
 namespace json2record.common.Services {
 
     public class CSharpGeneratorService {
-        public string GenerateDocument(string recordName, List<AttributeModel> attributeModels)
+        public string GenerateDocument(string recordName, HashSet<AttributeModel> attributeModels, HashSet<string> packages, string namespaceValue)
         {
-            var innerDocument = "";
-            innerDocument += $"    public record {recordName.Pascalize()} {{ \n";
+            var output = "";
+            if (attributeModels.Any(m => ReservedCSharpKeywords.Keywords.Contains(m.name))) {
+                packages.Add("System.Text.Json");
+            }
+            foreach (var s in packages) {
+                output += $"using {s}; \n";
+            }
+            if (packages.Count > 0) output += "\n"; 
+            output += $"namespace {namespaceValue} {{ \n";
+
+
+            output += $"    public record {recordName.Pascalize()} {{ \n";
+
+
             foreach(var l in attributeModels) {
+
+                string propertyName;
+                if (ReservedCSharpKeywords.Keywords.Contains(l.name)) {
+                    propertyName = l.name + "Value";
+                    output += $"        [JsonPropertyName(\"{l.name}\")]\n";
+                }
+                else {
+                    propertyName = l.name;
+                }
+
                 switch (l.datatype) {
                     case "datetime":
-                        innerDocument += GenerateDateTimeAttribute(l.name, l.isList);
+                        output += GenerateDateTimeAttribute(propertyName, l.isList);
                         break;
                     case "object":
-                        innerDocument += GenerateObjectAttribute(l.name, l.isList);
+                        output += GenerateObjectAttribute(propertyName, l.isList);
                         break;
                     case "boolean":
-                        innerDocument += GenerateBooleanAttribute(l.name, l.isList); 
+                        output += GenerateBooleanAttribute(propertyName, l.isList); 
                         break;
                     case "string":
-                        innerDocument += GenerateStringAttribute(l.name, l.isList); 
+                        output += GenerateStringAttribute(propertyName, l.isList); 
                         break;
                     case "double":
-                        innerDocument += GenerateDoubleAttribute(l.name, l.isList); 
+                        output += GenerateDoubleAttribute(propertyName, l.isList); 
                         break;
                     case "integer":
-                        innerDocument += GenerateIntAttribute(l.name, l.isList); 
+                        output += GenerateIntAttribute(propertyName, l.isList); 
                         break;
                     default:
                         break;
                 }
             }
-            innerDocument += $"    }} \n";
-            return innerDocument;
+            output += $"    }}\n}} \n";
+            return output;
         }
 
         private string GenerateObjectAttribute(string currentField, bool isList)

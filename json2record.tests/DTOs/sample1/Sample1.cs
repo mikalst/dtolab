@@ -8,5 +8,4 @@ namespace json2record.tests.sample1.DTOs {
         public List<Address> address { get; init; } 
         public Account account { get; init; } 
         public DateTime Date { get; init; } 
-    } 
-}
+    }} 

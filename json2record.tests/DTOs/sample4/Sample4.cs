@@ -6,5 +6,4 @@ namespace json2record.tests.sample4.DTOs {
         public string projectCD { get; init; } 
         public List<Lines> lines { get; init; } 
         public string lastCheck { get; init; } 
-    } 
-}
+    }} 

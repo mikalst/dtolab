@@ -14,17 +14,10 @@ namespace json2record.Services {
         public bool WriteFile(
             string key,
             ParsedArgs parsedArgs, 
-            List<string> filePackages, 
-            List<AttributeModel> attributes) {
-            var output = "";
-            foreach (var s in filePackages) {
-                output += $"using {s}; \n";
-            }
-            if (filePackages.Count > 0) output += "\n"; 
-            output += $"namespace {parsedArgs.namespaceArg} {{ \n";
-            var inner = (new CSharpGeneratorService()).GenerateDocument(key, attributes);
-            output += inner;
-            output += "}";
+            HashSet<string> filePackages, 
+            HashSet<AttributeModel> attributes) {
+
+            var output = (new CSharpGeneratorService()).GenerateDocument(key, attributes, filePackages, parsedArgs.namespaceArg);
             var filePath = Path.Combine(parsedArgs.outputDirectory, key.Pascalize() + ".cs");
 
             using (FileStream fs = File.Create(filePath))

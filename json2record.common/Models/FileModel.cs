@@ -1,10 +1,11 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace json2record.common {
-    public struct FileModel : IEquatable<FileModel> {
+    public class FileModel {
         public string name { get; init; }
-        public List<AttributeModel> attributes { get; init; }
+        public HashSet<AttributeModel> attributes { get; init; }
         public HashSet<string> packages { get; init; } 
 
         public override bool Equals(object o) => this.Equals((FileModel)o);
@@ -12,12 +13,11 @@ namespace json2record.common {
         public bool Equals(FileModel rhs) {
             if (this.name != rhs.name) return false;
 
-            foreach(AttributeModel a in attributes) {
-                if (!(rhs.attributes.Contains(a))) return false;
-            }
-            foreach(string package in packages) {
-                if (!(rhs.packages.Contains(package))) return false;
-            }
+            var commonAttributes = attributes.Union(rhs.attributes);
+            if (commonAttributes.Count() != attributes.Count() || commonAttributes.Count() != rhs.attributes.Count()) return false;
+            var commonPackages = packages.Union(rhs.packages);
+            if (commonPackages.Count() != packages.Count() || commonPackages.Count() != rhs.packages.Count()) return false;
+            
             return true;
         }
 

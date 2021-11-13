@@ -1,5 +1,5 @@
-using System; 
 using System.Collections.Generic; 
+using System; 
 
 namespace json2record.tests.sample2.DTOs { 
     public record Sample2 { 

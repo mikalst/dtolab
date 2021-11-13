@@ -30,7 +30,7 @@ namespace json2record.common.Services {
             var currentFile = new FileModel()
             {
                 name = String.IsNullOrWhiteSpace(currentAttributeName) ? recordName : currentAttributeName,
-                attributes = new List<AttributeModel>(),
+                attributes = new HashSet<AttributeModel>(),
                 packages = new HashSet<string>()
             };
 

@@ -45,16 +45,7 @@ namespace json2record.func
             foreach(var key in files.Keys)
             {
                 var innerFile = files[key];
-                var output = "";
-                foreach (var s in innerFile.packages) {
-                    output += $"using {s}; \n";
-                }
-                if (innerFile.packages.Count > 0) output += "\n"; 
-
-                output += $"namespace dto {{ \n";
-                var inner = (new CSharpGeneratorService()).GenerateDocument(key, innerFile.attributes);
-                output += inner;
-                output += "}";
+                var output = (new CSharpGeneratorService()).GenerateDocument(key, innerFile.attributes, innerFile.packages, "dto");
                 dto.files.Add(key, output);
             }
 
