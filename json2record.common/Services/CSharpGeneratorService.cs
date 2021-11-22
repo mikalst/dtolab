@@ -6,7 +6,12 @@ using json2record.common.Constans;
 namespace json2record.common.Services {
 
     public class CSharpGeneratorService {
-        public string GenerateDocument(string recordName, HashSet<AttributeModel> attributeModels, HashSet<string> packages, string namespaceValue)
+        public string GenerateDocument(
+            string recordName,
+            HashSet<AttributeModel> attributeModels,
+            HashSet<string> packages,
+            string namespaceValue,
+            string classType)
         {
             var output = "";
             if (attributeModels.Any(m => ReservedCSharpKeywords.Keywords.Contains(m.name))) {
@@ -19,7 +24,7 @@ namespace json2record.common.Services {
             output += $"namespace {namespaceValue} {{ \n";
 
 
-            output += $"    public record {recordName.Pascalize()} {{ \n";
+            output += $"    public {classType} {recordName.Pascalize()} {{ \n";
 
 
             foreach(var l in attributeModels) {

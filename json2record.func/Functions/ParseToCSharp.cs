@@ -18,12 +18,15 @@ namespace json2record.func
     public static class ParseToCSharp
     {
         [FunctionName("csharp")]
-        public static Task<IActionResult> Run(
+        public async static Task<IActionResult> Run(
             [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = null)] HttpRequest req,
             ExecutionContext executionContext,
             ILogger log)
         {
-            var name = "dto";
+            var name = req.Query["name"];
+            var ns = req.Query["ns"];
+            var classtype = req.Query["classtype"];
+            if (classtype == "record_struct") { classtype = "record struct"; }
 
             var files = new Dictionary<string, FileModel>();
 
@@ -45,13 +48,18 @@ namespace json2record.func
             foreach(var key in files.Keys)
             {
                 var innerFile = files[key];
-                var output = (new CSharpGeneratorService()).GenerateDocument(key, innerFile.attributes, innerFile.packages, "dto");
+                var output = (new CSharpGeneratorService()).GenerateDocument(
+                    key,
+                    innerFile.attributes,
+                    innerFile.packages,
+                    ns,
+                    classtype);
                 dto.files.Add(key, output);
             }
 
             log.LogInformation("C# HTTP trigger successfully processed a request.");
 
-            return Task.FromResult<IActionResult>(new OkObjectResult(dto));
+            return await Task.FromResult(new OkObjectResult(dto));
         }
     }
 }
