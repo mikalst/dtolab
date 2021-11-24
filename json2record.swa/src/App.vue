@@ -1,6 +1,10 @@
 <template>
   <html>
-    <Banner @download="download" class="header"/>
+    <Banner 
+      @download="download"
+      @name_changed="updatename"
+      @namespace_changed="update_namespace"
+      @classtype_changed="update_classtype" class="header"/>
     <body> 
       <InputArea 
         @input-updated="startTimer"
@@ -30,7 +34,10 @@ export default {
       response: {},
       input: null,
       timePassed: 0,
-      timerInteral: null
+      timerInteral: null,
+      filename: "dto",
+      namespace: "ns",
+      classtype: "class"
     };
   },
   methods: {
@@ -57,7 +64,10 @@ export default {
       this.timerInteral = null;
     },
     callapi: function(input) {
-      var url = process.env.VUE_APP_PATH+"csharp";
+      var url = `${process.env.VUE_APP_PATH}csharp`
+        + `?name=${this.filename}`
+        + `&ns=${this.namespace}`
+        + `&classtype=${this.classtype}`;
       console.log(`Fetching from ${url}`);
       fetch(url, {
         "method": "POST",
@@ -72,9 +82,7 @@ export default {
         }                
         })
       .then(response => {
-        console.log(response);
         this.response = response;
-        this.files = response.files;
       })
       .catch(err => {
         console.error(err);
@@ -93,6 +101,18 @@ export default {
 
         fileLink.click();
       });
+    },
+    updatename: function(filename) {
+      this.filename = filename;
+      this.startTimer(this.input);
+    },
+    update_namespace: function(namespace) {
+      this.namespace = namespace;
+      this.startTimer(this.input);
+    },
+    update_classtype: function(classtype) {
+      this.classtype = classtype;
+      this.startTimer(this.input);
     }
   }
 }
@@ -107,6 +127,7 @@ export default {
   height: 100%;
   width: 100%;
   text-align: center;
+  font-size: 0.5rem;
   color: #2c3e50;
 }
 :root {
