@@ -30,7 +30,11 @@ namespace json2record.common.Services {
             foreach(var l in attributeModels) {
 
                 string propertyName;
-                if (ReservedCSharpKeywords.Keywords.Contains(l.name)) {
+                if (l.annotatedName != null) {
+                    propertyName = l.name;
+                    output += $"        [JsonPropertyName(\"{l.annotatedName}\")]\n";
+                }
+                else if (ReservedCSharpKeywords.Keywords.Contains(l.name)) {
                     propertyName = l.name + "Value";
                     output += $"        [JsonPropertyName(\"{l.name}\")]\n";
                 }

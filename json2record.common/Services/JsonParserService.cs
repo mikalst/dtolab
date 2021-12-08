@@ -25,6 +25,7 @@ namespace json2record.common.Services {
             string currentValue = "";
 
             bool isInsideList = false;
+            bool tryToHandleNonMatchingDuplicates = true;
             bool enclosedInQuotes = false;
             
             var currentFile = new FileModel()
@@ -51,11 +52,23 @@ namespace json2record.common.Services {
                                 ref files);
                             if(!(alternateStructure == files.GetValueOrDefault(subRecordName)))
                             {
-                                Console.Write(JsonSerializer.Serialize(alternateStructure));
-                                Console.Write(JsonSerializer.Serialize(files.GetValueOrDefault(subRecordName)));
-                                throw new NonMatchingDuplicateSubrecordsException(
-                                    $"duplicate subJSON '{subRecordName}' in '{recordName}' did not match previously " + 
-                                    $"generated record '{alternateStructure.name}'.");
+                                if (tryToHandleNonMatchingDuplicates)
+                                {
+                                    files.Add(
+                                        recordName+subRecordName.Camelize(),
+                                        alternateStructure);
+                                    currentFile.attributes.Add(new AttributeModel {
+                                        name = recordName+subRecordName,
+                                        annotatedName = subRecordName,
+                                        datatype = "object",
+                                        isList = isInsideList
+                                    });
+                                }
+                                else{
+                                    throw new NonMatchingDuplicateSubrecordsException(
+                                        $"duplicate subJSON '{subRecordName}' in '{recordName}' did not match previously " + 
+                                        $"generated record '{alternateStructure.name}'.");
+                                }
                             }
                         }
                         else {
@@ -65,12 +78,12 @@ namespace json2record.common.Services {
                                     streamReader,
                                     subRecordName,
                                     ref files));
+                            currentFile.attributes.Add(new AttributeModel {
+                                name = subRecordName,
+                                datatype = "object",
+                                isList = isInsideList
+                            });
                         }
-                        currentFile.attributes.Add(new AttributeModel {
-                            name = subRecordName,
-                            datatype = "object",
-                            isList = isInsideList
-                        });
                         break;
                     case '}':
                         // End of object
