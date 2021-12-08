@@ -11,7 +11,7 @@
         class="left"
         />
       <DisplayArea 
-        v-bind:files="response.files" 
+        v-bind:files="response?.files" 
         class="right"/>
     </body>
   </html>
