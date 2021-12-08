@@ -76,9 +76,10 @@ export default {
       .then(response => { 
         if(response.ok){
             return response.json()    
-        } 
+        }
         else{
             console.error("Server returned " + response.status + " : " + response.statusText);
+            return null;
         }                
         })
       .then(response => {
