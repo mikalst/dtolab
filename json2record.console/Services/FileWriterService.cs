@@ -14,10 +14,16 @@ namespace json2record.Services {
         public bool WriteFile(
             string key,
             ParsedArgs parsedArgs, 
-            HashSet<string> filePackages, 
-            HashSet<AttributeModel> attributes) {
+            HashSet<AttributeModel> attributes,
+            HashSet<string> packages) {
 
-            var output = (new CSharpGeneratorService()).GenerateDocument(key, attributes, filePackages, parsedArgs.namespaceArg);
+            var output = (new CSharpGeneratorService()).GenerateDocument(
+                key, 
+                attributes, 
+                packages, 
+                parsedArgs.namespaceArg,
+                parsedArgs.classType);
+
             var filePath = Path.Combine(parsedArgs.outputDirectory, key.Pascalize() + ".cs");
 
             using (FileStream fs = File.Create(filePath))

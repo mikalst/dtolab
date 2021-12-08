@@ -21,7 +21,7 @@ namespace JsonToRecord
                 .InformationalVersion
                 .ToString();
 
-            if (args.Length==3)
+            if (args.Length>=3 && args.Length<=4)
             {
                 var parsedArgs = new ArgParserService().Parse(args);
 
@@ -47,7 +47,11 @@ namespace JsonToRecord
                     var fileWriterService = new FileWriterService();
                     foreach (var key in files.Keys) {
                         // Create the file, or overwrite if the file exists.
-                        fileWriterService.WriteFile(key, parsedArgs, files[key].packages, files[key].attributes);
+                        fileWriterService.WriteFile(
+                            key,
+                            parsedArgs,
+                            files[key].attributes,
+                            files[key].packages);
                     }
                 }
                 catch (NonMatchingDuplicateSubrecordsException nmex)
@@ -62,11 +66,11 @@ namespace JsonToRecord
                 return;
             }
             else {
-                Console.WriteLine("[ERROR] Program takes three and exactly three input parameters.");
+                Console.WriteLine("[ERROR] Program takes three or four input parameters.");
                 Console.WriteLine($"json2record v{assemblyVersion}");
                 Console.WriteLine("-------------");
                 Console.WriteLine("\nUsage:");
-                Console.WriteLine("json2record <filePath> <outputDirectory> <namespace>");
+                Console.WriteLine("json2record <filePath> <outputDirectory> <namespace> [classType]");
 
             }
         }

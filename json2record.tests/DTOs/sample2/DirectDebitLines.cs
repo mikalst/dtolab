@@ -1,7 +1,7 @@
 using System; 
 
 namespace json2record.tests.sample2.DTOs { 
-    public record DirectDebitLines { 
+    public class DirectDebitLines { 
         public string id { get; init; } 
         public string mandateId { get; init; } 
         public string mandateDescription { get; init; } 
@@ -12,5 +12,5 @@ namespace json2record.tests.sample2.DTOs {
         public DateTime lastCollectionDate { get; init; } 
         public double maxAmount { get; init; } 
         public DateTime expirationDate { get; init; } 
-    } 
-}
+    }
+} 

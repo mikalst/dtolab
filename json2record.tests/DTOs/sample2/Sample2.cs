@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System; 
 
 namespace json2record.tests.sample2.DTOs { 
-    public record Sample2 { 
+    public class Sample2 { 
         public int internalId { get; init; } 
         public string number { get; init; } 
         public string name { get; init; } 
@@ -39,5 +39,5 @@ namespace json2record.tests.sample2.DTOs {
         public bool invoiceToDefaultLocation { get; init; } 
         public EInvoiceContract eInvoiceContract { get; init; } 
         public string defaultPaymentMethodId { get; init; } 
-    } 
-}
+    }
+} 
