@@ -127,7 +127,7 @@ export default {
   height: 100%;
   width: 100%;
   text-align: center;
-  font-size: 0.5rem;
+  font-size: 0.65rem;
   color: #2c3e50;
 }
 :root {
@@ -153,12 +153,15 @@ body {
   flex: 1 1 auto;
   display: flex;
   flex-direction: row;
+  overflow-y: hidden;
+  height: 95%;
   width: 100%;
-  height: 100%;
   margin: 0;
 }
 .header {
+  display: flex;
   flex: 0 1 auto;
+  max-height: 5%;
 }
 .left {
   width: 50%;
