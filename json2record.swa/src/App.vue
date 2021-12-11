@@ -32,7 +32,7 @@ export default {
   data: function() {
     return {
       response: {},
-      input: null,
+      input: "",
       timePassed: 0,
       timerInteral: null,
       filename: "dto",
@@ -46,7 +46,7 @@ export default {
       if (this.timerInteral) {
         this.timePassed = 0;
       }
-      else {
+      else if (this.input.length > 0) {
         this.timerInteral = setInterval(() => { 
           if (this.timePassed == 500) {
             this.stopTimer();
@@ -121,7 +121,6 @@ export default {
 
 <style>
 #app {
-  font-family: 'Roboto Condensed',sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
@@ -138,15 +137,17 @@ export default {
     --border-color: #aaa;
     --footer-color: #eee;
 }
+h1, input, button, select {
+  font-family: Consolas, Monaco, monospace;
+  font-size: 1.5em;
+  margin-left: 0.5em;
+}
 html {
   height: 100%;
   display: flex;
   flex-direction: column;
   padding-top: 0;
   margin-top: 0;
-}
-.header {
-  flex: 0 1 auto;
 }
 body {
   flex: 1 1 auto;
@@ -155,6 +156,9 @@ body {
   width: 100%;
   height: 100%;
   margin: 0;
+}
+.header {
+  flex: 0 1 auto;
 }
 .left {
   width: 50%;

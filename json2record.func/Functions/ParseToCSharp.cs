@@ -36,7 +36,8 @@ namespace json2record.func
                     file = new JsonParserService().Parse(
                         sr,
                         name,
-                        ref files
+                        ref files,
+                        true
                 );
             }
             

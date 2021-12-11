@@ -18,14 +18,14 @@ namespace json2record.common.Services {
         public FileModel Parse(
             StreamReader streamReader,
             string recordName,
-            ref Dictionary<string, FileModel> files) {
+            ref Dictionary<string, FileModel> files,
+            bool tryToHandleNonMatchingDuplicates = false) {
 
             var readAttributeName = true;
             string currentAttributeName = "";
             string currentValue = "";
 
             bool isInsideList = false;
-            bool tryToHandleNonMatchingDuplicates = true;
             bool enclosedInQuotes = false;
             
             var currentFile = new FileModel()
