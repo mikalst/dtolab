@@ -90,14 +90,14 @@ export default {
       });
     },
     download: function() {
-      console.log(Object.keys(this.files).length);
-      Object.keys(this.files).forEach((key, index) => {
+      Object.keys(this.response.files).forEach((key, index) => {
         console.log(key, index);
-        var fileURL = window.URL.createObjectURL(new Blob([this.files[key]]));
+        var fileURL = window.URL.createObjectURL(new Blob([this.response.files[key]]));
         var fileLink = document.createElement('a');
 
         fileLink.href = fileURL;
-        fileLink.setAttribute('download', key+'.cs');
+        var fileName = key[0].toUpperCase() + key.substring(1) + '.cs';
+        fileLink.setAttribute('download', fileName);
         document.body.appendChild(fileLink);
 
         fileLink.click();
