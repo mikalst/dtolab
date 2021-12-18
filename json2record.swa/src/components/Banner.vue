@@ -1,14 +1,24 @@
 <template>
   <header>
-    <h1>dtolab.dev</h1>
+    <div class="title">
+      <h1>dtolab.dev</h1>
+    </div>
     <select v-on:change="update_classtype" v-model="classtype" id="cars" name="cars">
       <option value="class" selected>Class</option>
       <option value="struct">Struct</option>
       <option value="record">Record</option>
       <option value="record_struct">Record Struct</option>
     </select>
-    <input v-model="namespace" v-on:keyup="update_namespace" placeholder="ns"> 
-    <input v-model="filename" v-on:keyup="update_name" placeholder="dto"> 
+    <input 
+      v-model="namespace" 
+      :style="{ width: namespace.length*0.6+'em' }" 
+      v-on:keyup="update_namespace" 
+      placeholder="ns"> 
+    <input 
+      v-model="filename" 
+      :style="{ width: filename.length*0.6+'em' }" 
+      v-on:keyup="update_name" 
+      placeholder="dto"> 
     <button v-on:click="download"> Download </button>
   </header>
 </template>
@@ -47,12 +57,20 @@ header {
   display: flex;
   color: var(--header-text-color);
   background-color: var(--header-color);
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
+  padding-top: 0.15rem;
+  padding-bottom: 0.15rem;
   padding-right: 0.5rem;
 }
-h1 {
+.title {
   flex: 1 1 auto;
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+h1 {
+  padding-left: 0.5em;
+  margin: 0;
+  vertical-align: middle;
 }
 button {
   flex: 0 1 auto;
@@ -62,11 +80,12 @@ button {
   background-color: var(--header-color);
   border: 2px solid var(--header-text-color);
   color: var(--header-text-color);
+  box-shadow: 1em;
 }
 input {
   flex: 0 1 auto;
   align-content: right;
-  width: 15%;
+  min-width: 15%;
   text-align: center;
   border: 2px solid var(--header-text-color);
   color: var(--header-text-color);

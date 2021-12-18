@@ -22,6 +22,7 @@ import InputArea from './components/InputArea.vue'
 import DisplayArea from './components/DisplayArea.vue'
 import Banner from './components/Banner.vue'
 
+
 export default {
   name: 'App',
   components: {
@@ -137,7 +138,14 @@ export default {
     --border-color: #aaa;
     --footer-color: #eee;
 }
-h1, input, button, select {
+h1 {
+  font-family: Consolas, Monaco, monospace;
+  font-size: 1.5em;
+  align-content: center;
+  vertical-align: center;
+  margin-left: 0.5em;
+}
+input, button, select {
   font-family: Consolas, Monaco, monospace;
   font-size: 1.5em;
   margin-left: 0.5em;
