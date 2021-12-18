@@ -72,6 +72,7 @@ namespace json2record.common.Services {
                                 }
                             }
                         }
+                        // If inner JSON with same name
                         else if (recordName == subRecordName){
                             files.Add(
                                 $"{subRecordName}Value",
