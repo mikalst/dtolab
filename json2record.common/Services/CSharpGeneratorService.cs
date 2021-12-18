@@ -13,23 +13,13 @@ namespace json2record.common.Services {
             string namespaceValue,
             string classType)
         {
-            var output = "";
-            if (attributeModels.Any(m => ReservedCSharpKeywords.Keywords.Contains(m.name))) {
-                packages.Add("System.Text.Json");
-            }
-            foreach (var s in packages) {
-                output += $"using {s}; \n";
-            }
-            if (packages.Count > 0) output += "\n"; 
-            output += $"namespace {namespaceValue} {{ \n";
-
+            var output = $"namespace {namespaceValue} {{ \n";
 
             output += $"    public {classType} {recordName.Pascalize()} {{ \n";
 
-
             foreach(var l in attributeModels) {
 
-                string propertyName;
+                var propertyName = l.name;
                 if (l.annotatedName != null) {
                     propertyName = l.name;
                     output += $"        [JsonPropertyName(\"{l.annotatedName}\")]\n";
@@ -37,9 +27,17 @@ namespace json2record.common.Services {
                 else if (ReservedCSharpKeywords.Keywords.Contains(l.name)) {
                     propertyName = l.name + "Value";
                     output += $"        [JsonPropertyName(\"{l.name}\")]\n";
+                    packages.Add("System.Text.Json");
                 }
                 else {
-                    propertyName = l.name;
+                    propertyName = new string(
+                        l.name.Where(
+                            c => char.IsLetterOrDigit(c) || c == '_').ToArray());
+                    if (propertyName.Length < l.name.Length)
+                    {
+                        output += $"        [JsonPropertyName(\"{l.name}\")]\n";
+                        packages.Add("System.Text.Json");
+                    } 
                 }
 
                 switch (l.datatype) {
@@ -65,8 +63,16 @@ namespace json2record.common.Services {
                         break;
                 }
             }
-            output += $"    }}\n}} \n";
-            return output;
+            
+            var packagesSectionOutputString = ""; 
+            foreach (var s in packages) {
+                packagesSectionOutputString += $"using {s}; \n";
+            }
+            if (packages.Count > 0) packagesSectionOutputString += "\n"; 
+
+            var result = packagesSectionOutputString + output + $"    }}\n}} \n";
+
+            return result;
         }
 
         private string GenerateObjectAttribute(string currentField, bool isList)
