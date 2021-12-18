@@ -71,6 +71,13 @@ namespace json2record.common.Services {
                                         $"generated record '{alternateStructure.name}'.");
                                 }
                             }
+                            else{
+                                currentFile.attributes.Add(new AttributeModel {
+                                    name = subRecordName,
+                                    datatype = "object",
+                                    isList = isInsideList
+                                });                               
+                            }
                         }
                         // If inner JSON with same name
                         else if (recordName == subRecordName){
