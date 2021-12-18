@@ -49,7 +49,8 @@ namespace json2record.common.Services {
                             var alternateStructure = Parse(
                                 streamReader,
                                 subRecordName,
-                                ref files);
+                                ref files,
+                                tryToHandleNonMatchingDuplicates);
                             if(!(alternateStructure == files.GetValueOrDefault(subRecordName)))
                             {
                                 if (tryToHandleNonMatchingDuplicates)
@@ -71,13 +72,29 @@ namespace json2record.common.Services {
                                 }
                             }
                         }
+                        else if (recordName == subRecordName){
+                            files.Add(
+                                $"{subRecordName}Value",
+                                Parse(
+                                    streamReader,
+                                    subRecordName,
+                                    ref files,
+                                    tryToHandleNonMatchingDuplicates));
+                            currentFile.attributes.Add(new AttributeModel {
+                                name = $"{subRecordName}Value",
+                                annotatedName = subRecordName,
+                                datatype = "object",
+                                isList = isInsideList
+                            });
+                        }
                         else {
                             files.Add(
                                 subRecordName,
                                 Parse(
                                     streamReader,
                                     subRecordName,
-                                    ref files));
+                                    ref files,
+                                    tryToHandleNonMatchingDuplicates));
                             currentFile.attributes.Add(new AttributeModel {
                                 name = subRecordName,
                                 datatype = "object",

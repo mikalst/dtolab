@@ -37,7 +37,7 @@ namespace json2record.func
                         sr,
                         name,
                         ref files,
-                        true
+                        tryToHandleNonMatchingDuplicates: true
                 );
             }
             
