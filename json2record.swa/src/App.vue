@@ -140,14 +140,12 @@ export default {
 }
 h1 {
   font-family: Consolas, Monaco, monospace;
-  font-size: 1.5em;
   align-content: center;
   vertical-align: center;
   margin-left: 0.5em;
 }
 input, button, select {
   font-family: Consolas, Monaco, monospace;
-  font-size: 1.5em;
   margin-left: 0.5em;
 }
 html {

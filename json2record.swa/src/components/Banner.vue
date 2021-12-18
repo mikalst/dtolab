@@ -1,25 +1,29 @@
 <template>
   <header>
-    <div class="title">
+    <b-container class="title">
       <h1>dtolab.dev</h1>
-    </div>
-    <select v-on:change="update_classtype" v-model="classtype" id="cars" name="cars">
-      <option value="class" selected>Class</option>
-      <option value="struct">Struct</option>
-      <option value="record">Record</option>
-      <option value="record_struct">Record Struct</option>
-    </select>
-    <input 
+    </b-container>
+    <b-form-select 
+      :style="{ height: '100%' }"
+      v-on:change="update_classtype" 
+      v-model="classtype" 
+      class="select">
+      <b-form-select-option :value="'class'">class</b-form-select-option>
+      <b-form-select-option :value="'struct'">struct</b-form-select-option>
+      <b-form-select-option :value="'record'">record</b-form-select-option>
+      <b-form-select-option :value="'record_struct'">record struct</b-form-select-option>
+    </b-form-select>
+    <b-form-input 
       v-model="namespace" 
-      :style="{ width: namespace.length*0.6+'em' }" 
+      :style="{ width: namespace.length+'em' }" 
       v-on:keyup="update_namespace" 
-      placeholder="ns"> 
-    <input 
+      placeholder="ns"></b-form-input>
+    <b-form-input 
       v-model="filename" 
-      :style="{ width: filename.length*0.6+'em' }" 
+      :style="{ width: filename.length+'em' }" 
       v-on:keyup="update_name" 
-      placeholder="dto"> 
-    <button v-on:click="download"> Download </button>
+      placeholder="dto"></b-form-input>
+    <b-button v-on:click="download"> Download </b-button>
   </header>
 </template>
 
@@ -42,9 +46,15 @@ export default {
   },
   data: function() {
     return {
-      classtype: "class",
+      classtype: 'class',
       filename: "dto",
-      namespace: "ns"
+      namespace: "ns",
+      classtypes: [
+        { value: 'class', text: 'class' },
+        { value: 'struct', text: 'struct' },
+        { value: 'record', text: 'record' },
+        { value: 'record_struct', text: 'record struct' }
+      ]
     }
   }
 }
@@ -72,22 +82,19 @@ h1 {
   margin: 0;
   vertical-align: middle;
 }
+.select {
+  flex: 0 1 auto;
+  width: 15%;
+}
 button {
   flex: 0 1 auto;
-  align-content: left;
   width: 15%;
-  text-align: center;
   background-color: var(--header-color);
-  border: 2px solid var(--header-text-color);
   color: var(--header-text-color);
-  box-shadow: 1em;
 }
 input {
   flex: 0 1 auto;
-  align-content: right;
   min-width: 15%;
   text-align: center;
-  border: 2px solid var(--header-text-color);
-  color: var(--header-text-color);
 }
 </style>
