@@ -17,19 +17,19 @@ jobs:
         dotnet-version: 5.0.x
     - name: Restore dependencies
       run: dotnet restore
-    - name: Build json2record
-      run: dotnet build --no-restore --configuration Release json2record.console
-    - name: Pack json2record
-      run: dotnet pack --no-build --configuration Release json2record.console
-    - name: Upload json2record
+    - name: Build dtolab
+      run: dotnet build --no-restore --configuration Release dtolab.console
+    - name: Pack dtolab
+      run: dotnet pack --no-build --configuration Release dtolab.console
+    - name: Upload dtolab
       uses: actions/upload-artifact@v2
       with:
-        name: json2record
-        path: json2record.console/nupkg/
-    - name: Install json2record
-      run: dotnet tool install --global --add-source json2record.console/nupkg/ json2record
-    - name: Run json2record
-      run: dotnet test json2record.tests --logger trx --no-restore --configuration Release --verbosity normal --results-directory tests
+        name: dtolab
+        path: dtolab.console/nupkg/
+    - name: Install dtolab
+      run: dotnet tool install --global --add-source dtolab.console/nupkg/ dtolab
+    - name: Run dtolab
+      run: dotnet test dtolab.tests --logger trx --no-restore --configuration Release --verbosity normal --results-directory tests
     - name: Upload dotnet test results
       uses: actions/upload-artifact@v2
       with:
@@ -46,7 +46,7 @@ jobs:
     steps:
     - uses: actions/download-artifact@v2
       with:
-        name: json2record
+        name: dtolab
         path: artifact/
     - uses: actions/setup-dotnet@v1
       with:

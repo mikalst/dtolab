@@ -1,0 +1,40 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.7.1" />
+    <PackageReference Include="xunit" Version="2.4.1" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="coverlet.collector" Version="1.3.0">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\dtolab.console\dtolab.console.csproj" />
+    <ProjectReference Include="..\dtolab.common\dtolab.common.csproj" />
+  </ItemGroup>
+
+  <Target Name="dtolab-manual" AfterTargets="Restore" Condition=" '$(Configuration)' == 'Debug' ">
+    <Exec Command="dotnet ../dtolab.console/bin/Debug/net6.0/dtolab.console.dll samples/sample1.json DTOs/sample1 dtolab.tests.sample1.DTOs" />
+    <Exec Command="dotnet ../dtolab.console/bin/Debug/net6.0/dtolab.console.dll samples/sample2.json DTOs/sample2 dtolab.tests.sample2.DTOs" />
+    <Exec Command="dotnet ../dtolab.console/bin/Debug/net6.0/dtolab.console.dll samples/sample4.json DTOs/sample4 dtolab.tests.sample4.DTOs" />
+    <Exec Command="dotnet ../dtolab.console/bin/Debug/net6.0/dtolab.console.dll samples/sample5.json DTOs/sample5 dtolab.tests.sample5.DTOs" />
+  </Target>
+  <Target Name="dtolab" AfterTargets="Restore" Condition=" '$(Configuration)' == 'Release'">
+    <Exec Command="dtolab.console samples/sample1.json DTOs/sample1 dtolab.tests.sample1.DTOs" />
+    <Exec Command="dtolab.console samples/sample2.json DTOs/sample2 dtolab.tests.sample2.DTOs" />
+    <Exec Command="dtolab.console samples/sample4.json DTOs/sample4 dtolab.tests.sample4.DTOs" />
+    <Exec Command="dtolab.console samples/sample5.json DTOs/sample5 dtolab.tests.sample5.DTOs" />
+  </Target>
+
+</Project>

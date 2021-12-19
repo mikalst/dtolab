@@ -7,8 +7,8 @@ on:
       - master
 
 env:
-  AZURE_FUNCTIONAPP_NAME: json2record.func  # set this to your application's name
-  AZURE_FUNCTIONAPP_PACKAGE_PATH: './json2record.func'    # set this to the path to your web app project, defaults to the repository root
+  AZURE_FUNCTIONAPP_NAME: dtolab.func  # set this to your application's name
+  AZURE_FUNCTIONAPP_PACKAGE_PATH: './dtolab.func'    # set this to the path to your web app project, defaults to the repository root
   DOTNET_VERSION: '6.0.0'              # set this to the dotnet version to use
 
 jobs:
@@ -26,7 +26,7 @@ jobs:
           repo_token: ${{ secrets.GITHUB_TOKEN }} # Used for Github integrations (i.e. PR comments)
           action: "upload"
           ###### Repository/Build Configurations - These values can be configured to match your app requirements. ######
-          app_location: "/json2record.swa" # App source code path
-          api_location: "/json2record.func" # Api source code path - optional
+          app_location: "/dtolab.swa" # App source code path
+          api_location: "/dtolab.func" # Api source code path - optional
           output_location: "dist" # Built app content directory - optional
           ###### End of Repository/Build Configurations ######
