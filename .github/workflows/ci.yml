@@ -27,7 +27,7 @@ jobs:
         name: dtolab
         path: dtolab.console/nupkg/
     - name: Install dtolab
-      run: dotnet tool install --global --add-source dtolab.console/nupkg/ dtolab
+      run: dotnet tool install --global --add-source dtolab.console/nupkg/ dtolab.console
     - name: Run dtolab
       run: dotnet test dtolab.tests --logger trx --no-restore --configuration Release --verbosity normal --results-directory tests
     - name: Upload dotnet test results

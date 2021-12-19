@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
-using System.Text;
-using Humanizer;
 using json2record.common;
 using json2record.common.Exceptions;
 using json2record.common.Services;
@@ -25,9 +23,9 @@ namespace JsonToRecord
             {
                 var parsedArgs = new ArgParserService().Parse(args);
 
-                Console.WriteLine($"json2record command line tool, json2record-v{assemblyVersion}");
-                Console.WriteLine($"Visit https://github.com/json2record/json2record for more information.");
-                Console.WriteLine($"json2record bin directory {assemblyInfo.Location}");
+                Console.WriteLine($"dtolab command line tool, dtolab-v{assemblyVersion}");
+                Console.WriteLine($"Visit https://github.com/mikalst/dtolab for more information.");
+                Console.WriteLine($"dtolab bin directory {assemblyInfo.Location}");
 ;
                 Console.WriteLine($"Generating record for {parsedArgs.resolvedInputPath}");
                 Console.WriteLine($"... with target {parsedArgs.outputPath}");
@@ -68,10 +66,10 @@ namespace JsonToRecord
             }
             else {
                 Console.WriteLine("[ERROR] Program takes three or four input parameters.");
-                Console.WriteLine($"json2record v{assemblyVersion}");
+                Console.WriteLine($"dtolab v{assemblyVersion}");
                 Console.WriteLine("-------------");
                 Console.WriteLine("\nUsage:");
-                Console.WriteLine("json2record <filePath> <outputDirectory> <namespace> [classType]");
+                Console.WriteLine("dtolab <filePath> <outputDirectory> <namespace> [classType]");
 
             }
         }
