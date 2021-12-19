@@ -1,17 +1,16 @@
-# json2record
+# dtolab
 [![CI](https://github.com/mikalst/json2record/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/mikalst/json2record/actions/workflows/ci.yml) 
 &nbsp;
-A simple utility for generating c#9 records from a JSON example.
+A simple utility for generating dtos from JSON examples.
  
-
 ## Installation
 ```
-dotnet tool install --global json2record
+dotnet tool install --global dtolab
 ```
 
 ## Usage
 ```
-json2record <inputfile> <outputfolder> <namespace>
+dtolab <inputfile> <outputfolder> <namespace> [class]
 ```
 
-![Demonstration of json2record](https://raw.githubusercontent.com/mikalst/json2record/main/docs/usage.gif)
+![Demonstration of dtolab](https://raw.githubusercontent.com/mikalst/dtolab/main/docs/usage.gif)
