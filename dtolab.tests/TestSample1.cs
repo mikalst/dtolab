@@ -5,7 +5,7 @@ using System.IO;
 using System.Text;
 using dtolab.tests.sample1.DTOs;
 
-namespace json2record.tests
+namespace dtolab.tests
 {
     public class UnitTestSample1
     {

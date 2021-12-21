@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using Humanizer;
-using json2record.common.Constans;
+using dtolab.common.Constans;
 
-namespace json2record.common.Services {
+namespace dtolab.common.Services {
 
     public class CSharpGeneratorService {
         public string GenerateDocument(
@@ -23,11 +23,12 @@ namespace json2record.common.Services {
                 if (l.annotatedName != null) {
                     propertyName = l.name;
                     output += $"        [JsonPropertyName(\"{l.annotatedName}\")]\n";
+                    packages.Add("System.Text.Json.Serialization");
                 }
                 else if (ReservedCSharpKeywords.Keywords.Contains(l.name)) {
                     propertyName = l.name + "Value";
                     output += $"        [JsonPropertyName(\"{l.name}\")]\n";
-                    packages.Add("System.Text.Json");
+                    packages.Add("System.Text.Json.Serialization");
                 }
                 else {
                     propertyName = new string(
@@ -36,7 +37,7 @@ namespace json2record.common.Services {
                     if (propertyName.Length < l.name.Length)
                     {
                         output += $"        [JsonPropertyName(\"{l.name}\")]\n";
-                        packages.Add("System.Text.Json");
+                        packages.Add("System.Text.Json.Serialization");
                     } 
                 }
 

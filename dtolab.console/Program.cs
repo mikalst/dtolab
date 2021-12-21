@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
-using json2record.common;
-using json2record.common.Exceptions;
-using json2record.common.Services;
-using json2record.Services;
+using dtolab.common;
+using dtolab.common.Exceptions;
+using dtolab.common.Services;
+using dtolab.Services;
 
 namespace JsonToRecord
 {

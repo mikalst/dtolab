@@ -5,10 +5,10 @@ using System.Globalization;
 using Humanizer;
 using System;
 using System.Text;
-using json2record.common.Exceptions;
+using dtolab.common.Exceptions;
 using System.Linq;
 
-namespace json2record.common.Services {
+namespace dtolab.common.Services {
     public class JsonParserService {
         private readonly UTF8Encoding _encoding;
         public JsonParserService() {
@@ -56,7 +56,7 @@ namespace json2record.common.Services {
                                 if (tryToHandleNonMatchingDuplicates)
                                 {
                                     files.Add(
-                                        recordName+subRecordName.Camelize(),
+                                        recordName+subRecordName,
                                         alternateStructure);
                                     currentFile.attributes.Add(new AttributeModel {
                                         name = recordName+subRecordName,

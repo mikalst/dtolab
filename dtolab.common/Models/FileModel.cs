@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace json2record.common {
+namespace dtolab.common {
     public class FileModel {
         public string name { get; init; }
         public HashSet<AttributeModel> attributes { get; init; }

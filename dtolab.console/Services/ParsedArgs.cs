@@ -1,4 +1,4 @@
-namespace json2record.Services
+namespace dtolab.Services
 {
     public record ParsedArgs
     {

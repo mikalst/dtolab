@@ -1,7 +1,7 @@
 
 using System.Collections.Generic;
 
-namespace json2record.common.Constans {
+namespace dtolab.common.Constans {
     public static class ReservedCSharpKeywords {
         public static List<string> Keywords = new List<string>() {
             "abstract",

@@ -1,6 +1,6 @@
 using System;
 
-namespace json2record.common.Exceptions {
+namespace dtolab.common.Exceptions {
     public class NonMatchingDuplicateSubrecordsException : Exception {
         public NonMatchingDuplicateSubrecordsException(string s) : base(s) {
         }

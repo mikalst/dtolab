@@ -1,4 +1,4 @@
-namespace json2record.common.Services
+namespace dtolab.common.Services
 {
     public class ClassType
     {

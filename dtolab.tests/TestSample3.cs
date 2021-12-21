@@ -3,11 +3,11 @@ using Xunit;
 using System.Text.Json;
 using System.IO;
 using System.Collections.Generic;
-using json2record.common.Exceptions;
-using json2record.common;
-using json2record.common.Services;
+using dtolab.common.Exceptions;
+using dtolab.common;
+using dtolab.common.Services;
 
-namespace json2record.tests
+namespace dtolab.tests
 {
     public class UnitTestSample3
     {

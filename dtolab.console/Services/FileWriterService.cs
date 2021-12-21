@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using Humanizer;
-using json2record.common;
-using json2record.common.Services;
+using dtolab.common;
+using dtolab.common.Services;
 
-namespace json2record.Services {
+namespace dtolab.Services {
     class FileWriterService {
         public FileWriterService() {
         }

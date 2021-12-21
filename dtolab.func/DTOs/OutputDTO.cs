@@ -1,7 +1,7 @@
 using System.Collections.Generic;
-using json2record.common;
+using dtolab.common;
 
-namespace json2record.func.DTOs {
+namespace dtolab.func.DTOs {
     public record OutputDTO {
         public string name { get; init; }
         public Dictionary<string, FileModel> files { get; init; }

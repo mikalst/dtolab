@@ -1,4 +1,4 @@
-namespace json2record.common {
+namespace dtolab.common {
     public record LineModel {
         public string name { get; init; }
         public string dataDype { get; init; }

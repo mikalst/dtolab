@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace json2record.common {
+namespace dtolab.common {
     public record AttributeModel {
         public string name { get; init; }
         public string annotatedName { get; init; } = null;

@@ -2,7 +2,7 @@ using System;
 using System.IO;
 using System.Linq;
 
-namespace json2record.Services{
+namespace dtolab.Services{
     public class ArgParserService{
         public ParsedArgs Parse(string[] args) {
             

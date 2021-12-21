@@ -4,16 +4,16 @@ using System.Linq;
 using System.Net;
 using System.Text.Json;
 using System.Threading.Tasks;
-using json2record.common;
-using json2record.common.Services;
-using json2record.func.DTOs;
+using dtolab.common;
+using dtolab.common.Services;
+using dtolab.func.DTOs;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.Extensions.Logging;
 
-namespace json2record.func
+namespace dtolab.func
 {
     public static class ParseToCSharp
     {

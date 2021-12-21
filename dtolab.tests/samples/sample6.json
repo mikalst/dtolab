@@ -1,0 +1,355 @@
+{
+    "MessageGuid": "43029e1f-a6c2-407c-8fe5-7aefd4dfd570",
+    "XNumber": "301111111",
+    "TestType": "testalCompanyMainForm",
+    "TestData": {
+        "testalCompanyMainForm": {
+            "profile": {
+                "contacts": {
+                    "firstName": "asd",
+                    "lastName": "asd",
+                    "phoneNumber": {
+                        "countryCode": "47",
+                        "number": "81549300"
+                    },
+                    "email": "name.name@domain.com"
+                },
+                "confirmationFromBoardOfCompany": {
+                    "confirmationFromBoardOfCompanyFile": {
+                        "Id": "e294fde8-4aac-4b6a-9736-f2b5fbee9b19",
+                        "Name": "file.png",
+                        "$type": "file"
+                    }
+                },
+                "previousAccreditation": {
+                    "accreditedAsVocationalEducationCompany": true,
+                    "studyPlanFile": null,
+                    "infrastructureFile": null
+                }
+            },
+            "educationAndCollaboration": {
+                "education": {
+                    "mainName": "asd",
+                    "fkfMainCategoryId": "3842cac4-b9a0-8223-0dcc-509a6f75849b",
+                    "fkfSubCategoryId": "2fe5f867-fda0-b64e-4e06-15b8232095d1",
+                    "reasonForName": "<p>asd</p>",
+                    "educationGivenOn": [
+                        "campus",
+                        "netbased",
+                        "netbasedWithMeetings"
+                    ],
+                    "studyPlaces": [
+                        "asd",
+                        "Test",
+                        "Test"
+                    ]
+                },
+                "collaboration": {
+                    "whoCollaboratingWith": "<p>asd</p>",
+                    "resultOfColaborating": "<p>asd</p>",
+                    "receivedFunds": true,
+                    "describeReceivedFunds": "<p>asd</p>"
+                }
+            },
+            "learningOutcome": {
+                "learningOutcome": {
+                    ".comwledge": "<p>asd</p>"
+                },
+                "educationContent": {
+                    "educationContentFile": {
+                        "Id": "43d4d95e-8251-4e13-94a4-203b607f02dc",
+                        "Name": "Testc.png",
+                        "$type": "file"
+                    }
+                }
+            },
+            "scopeLevelAndStandards": {
+                "scopeAndLevel": {
+                    "testalEducationPoints": "90",
+                    "testalEducationPointsComment": null,
+                    "educationLevel": "level-2"
+                },
+                "standardsAndAgreements": {
+                    "includesAgreements": true,
+                    "agreement": "<p>asd</p>",
+                    "publicOrganAgreement": "<p>asd</p>",
+                    "approvalLetter": [
+                        {
+                            "Id": "e8884929-b1af-4ddd-bfd7-65180a580bdf",
+                            "Name": "Test.png",
+                            "$type": "file"
+                        }
+                    ]
+                }
+            },
+            "educationAdmissionRequirements": {
+                "educationAdmissionRequirements": {
+                    "achieveLearningOutcome": "<p>asd</p>",
+                    "needsAdmissionCriteriaForEducation": true,
+                    "educationAdmissionDetails": "<p>asd</p>"
+                }
+            },
+            "policeCertificateAndSuitability": {
+                "police": {
+                    "policeCertificateRequired": true,
+                    "policeCertificateGrounds": "<p>asd</p>"
+                },
+                "suitabilityAssessment": {
+                    "areStudentsSuitableForProfession": true,
+                    "suitabilityGrounds": "<p>asd</p>"
+                }
+            },
+            "professionalEnvironmentsExpertise": {
+                "academicEnviroments": {
+                    "researchRequirements": {
+                        "Id": "6645789f-68b1-4708-ac9f-6cfcad60f89a",
+                        "Name": "test20200427081244.png",
+                        "$type": "file"
+                    },
+                    "documentation": {
+                        "Id": "e019e53d-4570-46e2-a6e4-aaba6e611103",
+                        "Name": "tjenestefeilmt1050.png",
+                        "$type": "file"
+                    },
+                    "clarificationForTeachingStaffSufficiency": "<p>asd</p>"
+                },
+                "pedagogicallyResponsiblePerson": {
+                    "formalCompetence": "<p>asd</p>",
+                    "pedagogicallyCompetence": "<p>asd</p>"
+                },
+                "educationallyResponsiblePerson": {
+                    "formalCompetence": "<p>asd</p>",
+                    "percentageOfEmployment": "Test",
+                    "otherEducations": "<p>asd</p>"
+                },
+                "externalExaminersCompetence": {
+                    "description": "<p>asd</p>"
+                },
+                "practiceSupervisorsCompetence": {
+                    "educationContainsPractice": false,
+                    "practiceDescription": null
+                }
+            },
+            "educationStaff": {
+                "capacity": {
+                    "totalWork": "asd",
+                    "numberOfEmployees": "asd",
+                    "differenceStudentStaff": "12",
+                    "maximumNumberOfStudentsInEducation": "123",
+                    "descriptionOfBigAndStabilStaff": "<p>asd</p>"
+                }
+            },
+            "otherInformationAndDocuments": {
+                "otherInformation": {
+                    "comment": "<p>asd</p>"
+                },
+                "otherDocuments": [
+                    {
+                        "additionalDocument": {
+                            "Id": "8ea4d51f-9dca-4b0a-8d65-0285b67554f3",
+                            "Name": "test20200427081244.png",
+                            "$type": "file"
+                        },
+                        "commentForDocument": "<p>asd</p>"
+                    },
+                    {
+                        "additionalDocument": {
+                            "Id": "fc8f42da-9359-4802-a1c0-6df9d8e73d72",
+                            "Name": "arkitekturDFO.png",
+                            "$type": "file"
+                        },
+                        "commentForDocument": "<p>asd</p>"
+                    }
+                ]
+            },
+            "submission": {
+                "confirmations": {
+                    "$type": "confirmation",
+                    "confirmationValues": [
+                        "profileConfirmation",
+                        "formConfirmation"
+                    ]
+                }
+            }
+        }
+    },
+    "InnsendtDato": "2021-11-04T09:18:40+01:00",
+    "ProfilJson": {
+        "BasicInformation": {
+            "AboutOrganization": {
+                "Name": "TestOrg 301111111",
+                "OrganizationalNumber": "301111111",
+                "OrganizationalNumberLastChange": "(sist endret 04.08.2021 14:04 av )",
+                "NameLastChange": "(sist endret 04.08.2021 14:04 av )"
+            },
+            "PostalAddress": {
+                "StreetAddress": "Address 1337",
+                "PostalCode": "0015",
+                "City": "Oslo",
+                "Country": "Norge"
+            },
+            "BusinessAddress": {
+                "StreetAddress": "Address 1337",
+                "PostalCode": "0015",
+                "City": "Oslo",
+                "Country": "Norge"
+            },
+            "OtherInformation": {
+                "EmailAddress": "name.name@domain.com",
+                "Homepage": "domain.com",
+                "InstitutionType": [
+                    1
+                ],
+                "OrganizationMapFiles": [
+                    {
+                        "Id": "91a9d0c2-e392-4a85-be20-49a8880bc943",
+                        "Name": "test.png"
+                    },
+                    {
+                        "Id": "9d886a9f-390e-4595-85c4-f1f5d3a1ded9",
+                        "Name": "test.png"
+                    }
+                ],
+                "OrganizationMapFilesLastChange": "(sist endret 18.10.2021 08:12 av Hanne Brei)",
+                "InstitutionTypeLastChange": "(sist endret 12.10.2021 08:54 av Hanne Brei)",
+                "HomepageLastChange": "(sist endret 12.10.2021 08:54 av Hanne Brei)",
+                "EmailAddressLastChange": "(sist endret 04.08.2021 14:04 av )"
+            },
+            "PostalAddressLastChange": "(sist endret 04.08.2021 14:04 av )",
+            "BusinessAddressLastChange": "(sist endret 04.08.2021 14:04 av )"
+        },
+        "VocationalCompanyRulesAndRegulations": {
+            "IsPublished": true,
+            "LinksToRules": "https://www.domain.com, https://www.vg.com",
+            "Documents": [
+                {
+                    "File": {
+                        "Id": "ff435e59-f464-41b3-a9a0-0efa93c5b872",
+                        "Name": "hest.jpeg"
+                    },
+                    "DocumentAreas": [
+                        "Rutine for klagebehandling",
+                        "PhD.reglement",
+                        "Reglement"
+                    ],
+                    "DocumentComment": "<p>Dokument 2</p>"
+                },
+                {
+                    "File": {
+                        "Id": "420a5790-496b-45d1-839c-63c5cddf208f",
+                        "Name": "hest.jpeg"
+                    },
+                    "DocumentAreas": [
+                        "Rutine for klagebehandling",
+                        "Klagenemd"
+                    ],
+                    "DocumentComment": "<p>Dokument 1</p>"
+                }
+            ],
+            "OtherInformation": {
+                "IsFirstUpload": true,
+                "DescriptionOfChanges": "<p>Det er ikke gjort.comen endringer</p>",
+                "IsFirstUploadLastChange": "(sist endret 13.10.2021 15:30 av Hanne Brei)",
+                "DescriptionOfChangesLastChange": "(sist endret 13.10.2021 15:30 av Hanne Brei)"
+            },
+            "IsPublishedLastChange": "(sist endret 13.10.2021 15:30 av Hanne Brei)",
+            "LinksToRulesLastChange": "(sist endret 21.10.2021 10:28 av Hanne Brei)",
+            "DocumentsLastChange": "(sist endret 19.10.2021 12:03 av Hanne Brei)"
+        },
+        "HigherEducationRulesAndRegulations": {
+            "IsPublished": null,
+            "LinksToRules": "",
+            "Documents": [],
+            "OtherInformation": {
+                "IsFirstUpload": null,
+                "DescriptionOfChanges": null,
+                "IsFirstUploadLastChange": "(sist endret 04.08.2021 14:04 av )",
+                "DescriptionOfChangesLastChange": "(sist endret 04.08.2021 14:04 av )"
+            },
+            "IsPublishedLastChange": "(sist endret 04.08.2021 14:04 av )",
+            "LinksToRulesLastChange": "(sist endret 04.08.2021 14:04 av )",
+            "DocumentsLastChange": "(sist endret 04.08.2021 14:04 av )"
+        },
+        "StudentsLearningEnvironmentAndRight": {
+            "StudentDemocracyFiles": [
+                {
+                    "Id": "dec4de12-034f-4063-99c5-06af4112c701",
+                    "Name": "hest.jpeg"
+                }
+            ],
+            "LearningEnvironmentFiles": [
+                {
+                    "Id": "369baecb-0674-4931-8fd6-e7cd6bd21c50",
+                    "Name": "hest.jpeg"
+                }
+            ],
+            "StudentDemocracyDescription": "<p>asdasd</p>",
+            "LearningEnvironmentDescription": "<p>asdasd</p>",
+            "LearningEnvironmentCommittee": null,
+            "StudentDemocracyFilesLastChange": "(sist endret 15.10.2021 09:25 av Hanne Brei)",
+            "LearningEnvironmentFilesLastChange": "(sist endret 15.10.2021 09:25 av Hanne Brei)",
+            "StudentDemocracyDescriptionLastChange": "(sist endret 15.10.2021 09:25 av Hanne Brei)",
+            "LearningEnvironmentDescriptionLastChange": "(sist endret 15.10.2021 09:25 av Hanne Brei)",
+            "LearningEnvironmentCommitteeLastChange": "(sist endret 04.08.2021 14:04 av )"
+        },
+        "BoardMemberSetup": {
+            "BoardMembers": [
+                "Test Brey, Boss",
+                "Test Personsen, Styremedlem",
+                "En Kul Sekretær, Sekretær"
+            ],
+            "CommentToBoardMembers": "<p>asdasd</p>",
+            "BoardSetupComment": "<p>asdasd</p>",
+            "Files": [
+                {
+                    "Id": "c60fb0bd-ea6c-468d-a09a-d3e852d718b8",
+                    "Name": "hest.jpeg"
+                }
+            ],
+            "BoardMembersLastChange": "(sist endret 18.10.2021 10:15 av Hanne Brei)",
+            "CommentToBoardMembersLastChange": "(sist endret 15.10.2021 09:25 av Hanne Brei)",
+            "BoardSetupCommentLastChange": "(sist endret 15.10.2021 09:25 av Hanne Brei)",
+            "FilesLastChange": "(sist endret 15.10.2021 09:25 av Hanne Brei)"
+        },
+        "VocationalCompanyQualityAssurance": {
+            "HasNokutPreviouslyReceivedQualityAssurance": false,
+            "ChangesInSystemDescription": "<p>asdasd</p>",
+            "DateForApproval": "13.10.2021",
+            "SystemDescriptionFiles": [
+                {
+                    "Id": "514568ec-2846-4a60-8e26-fc7946a66d6d",
+                    "Name": "hest.jpeg"
+                }
+            ],
+            "YearReportFiles": [
+                {
+                    "Id": "a55f8b33-185f-4df8-931f-58aa23f08ceb",
+                    "Name": "hest.jpeg"
+                }
+            ],
+            "TemplateEvaluationFormFiles": [
+                {
+                    "Id": "7e7c4eda-0fd5-49d0-a101-01e3a4edd88e",
+                    "Name": "EYUI7GYCQ5MD5PWHH3SX3JEI4U.jpg"
+                },
+                {
+                    "Id": "351d6853-5a39-4f8a-a065-5980b45b84c6",
+                    "Name": "hest.jpeg"
+                }
+            ],
+            "OtherDocumentFiles": [
+                {
+                    "Id": "a1875d61-ef02-4b21-ac43-99ee9fa902f2",
+                    "Name": "hest.jpeg"
+                },
+                {
+                    "Id": "487ad467-06d2-440a-8f97-a4535b1de0f3",
+                    "Name": "EYUI7GYCQ5MD5PWHH3SX3JEI4U.jpg"
+                }
+            ]
+        },
+        "HigherEducationQualityAssurance": {
+            "Documents": []
+        }
+    }
+}
