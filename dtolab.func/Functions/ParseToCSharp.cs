@@ -32,12 +32,11 @@ namespace dtolab.func
 
             FileModel file;
             using (var sr = new StreamReader(req.Body))
-                {
-                    file = new JsonParserService().Parse(
-                        sr,
-                        name,
-                        ref files,
-                        tryToHandleNonMatchingDuplicates: true
+            {
+                file = new JsonParserService().Parse(
+                    sr,
+                    name,
+                    ref files
                 );
             }
             
