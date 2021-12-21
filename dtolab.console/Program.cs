@@ -39,8 +39,7 @@ namespace JsonToRecord
                         var spec = new JsonParserService().Parse(
                             sr,
                             parsedArgs.recordName,
-                            ref files,
-                            true);
+                            ref files);
                     }
 
                     var fileWriterService = new FileWriterService();

@@ -27,6 +27,7 @@
   <Target Name="dtolab-manual" AfterTargets="Restore" Condition=" '$(Configuration)' == 'Debug' ">
     <Exec Command="dotnet ../dtolab.console/bin/Debug/net6.0/dtolab.console.dll samples/sample1.json DTOs/sample1 dtolab.tests.sample1.DTOs" />
     <Exec Command="dotnet ../dtolab.console/bin/Debug/net6.0/dtolab.console.dll samples/sample2.json DTOs/sample2 dtolab.tests.sample2.DTOs" />
+    <Exec Command="dotnet ../dtolab.console/bin/Debug/net6.0/dtolab.console.dll samples/sample3.json DTOs/sample3 dtolab.tests.sample3.DTOs" />
     <Exec Command="dotnet ../dtolab.console/bin/Debug/net6.0/dtolab.console.dll samples/sample4.json DTOs/sample4 dtolab.tests.sample4.DTOs" />
     <Exec Command="dotnet ../dtolab.console/bin/Debug/net6.0/dtolab.console.dll samples/sample5.json DTOs/sample5 dtolab.tests.sample5.DTOs" />
     <Exec Command="dotnet ../dtolab.console/bin/Debug/net6.0/dtolab.console.dll samples/sample6.json DTOs/sample6 dtolab.tests.sample6.DTOs" />
@@ -34,6 +35,7 @@
   <Target Name="dtolab" AfterTargets="Restore" Condition=" '$(Configuration)' == 'Release'">
     <Exec Command="dtolab.console samples/sample1.json DTOs/sample1 dtolab.tests.sample1.DTOs" />
     <Exec Command="dtolab.console samples/sample2.json DTOs/sample2 dtolab.tests.sample2.DTOs" />
+    <Exec Command="dtolab.console samples/sample3.json DTOs/sample3 dtolab.tests.sample3.DTOs" />
     <Exec Command="dtolab.console samples/sample4.json DTOs/sample4 dtolab.tests.sample4.DTOs" />
     <Exec Command="dtolab.console samples/sample5.json DTOs/sample5 dtolab.tests.sample5.DTOs" />
     <Exec Command="dtolab.console samples/sample6.json DTOs/sample6 dtolab.tests.sample6.DTOs" />

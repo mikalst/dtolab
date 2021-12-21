@@ -18,8 +18,7 @@ namespace dtolab.common.Services {
         public FileModel Parse(
             StreamReader streamReader,
             string recordName,
-            ref Dictionary<string, FileModel> files,
-            bool tryToHandleNonMatchingDuplicates = false) {
+            ref Dictionary<string, FileModel> files) {
 
             var readAttributeName = true;
             string currentAttributeName = "";
@@ -49,27 +48,18 @@ namespace dtolab.common.Services {
                             var alternateStructure = Parse(
                                 streamReader,
                                 subRecordName,
-                                ref files,
-                                tryToHandleNonMatchingDuplicates);
+                                ref files);
                             if(!(alternateStructure == files.GetValueOrDefault(subRecordName)))
                             {
-                                if (tryToHandleNonMatchingDuplicates)
-                                {
-                                    files.Add(
-                                        recordName+subRecordName,
-                                        alternateStructure);
-                                    currentFile.attributes.Add(new AttributeModel {
-                                        name = recordName+subRecordName,
-                                        annotatedName = subRecordName,
-                                        datatype = "object",
-                                        isList = isInsideList
-                                    });
-                                }
-                                else{
-                                    throw new NonMatchingDuplicateSubrecordsException(
-                                        $"duplicate subJSON '{subRecordName}' in '{recordName}' did not match previously " + 
-                                        $"generated record '{alternateStructure.name}'.");
-                                }
+                                files.Add(
+                                    recordName+subRecordName.Pascalize(),
+                                    alternateStructure);
+                                currentFile.attributes.Add(new AttributeModel {
+                                    name = recordName+subRecordName.Pascalize(),
+                                    annotatedName = subRecordName,
+                                    datatype = "object",
+                                    isList = isInsideList
+                                });
                             }
                             else{
                                 currentFile.attributes.Add(new AttributeModel {
@@ -86,8 +76,7 @@ namespace dtolab.common.Services {
                                 Parse(
                                     streamReader,
                                     subRecordName,
-                                    ref files,
-                                    tryToHandleNonMatchingDuplicates));
+                                    ref files));
                             currentFile.attributes.Add(new AttributeModel {
                                 name = $"{subRecordName}Value",
                                 annotatedName = subRecordName,
@@ -101,8 +90,7 @@ namespace dtolab.common.Services {
                                 Parse(
                                     streamReader,
                                     subRecordName,
-                                    ref files,
-                                    tryToHandleNonMatchingDuplicates));
+                                    ref files));
                             currentFile.attributes.Add(new AttributeModel {
                                 name = subRecordName,
                                 datatype = "object",
