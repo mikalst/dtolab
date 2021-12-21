@@ -1,31 +1,28 @@
 <template>
-  <CodeEditor 
-    :value="file" 
-    :read_only="true"
-    :language="'cpp'"
-    :languages="languages()"
-    :autofocus="true"
-    :width="'100%'"
-    :border_radius="'0px'"
-    ></CodeEditor>
+  <b-card class="text">
+    {{file}}
+  </b-card>
 </template>
 
 <script>
-import CodeEditor from 'simple-code-editor';
-
 export default {
   name: 'DisplayEntity',
   components: {
-    CodeEditor
   },
   props: {
-    file: {} 
+    file: null 
   },
   methods: {
     languages: function () {
       return [
         ['chsarp', 'c#']
       ];
+    },
+    style: function () {
+      console.log(length(this.file));
+      return {
+        height: length(this.file)
+      }
     }
   }
 }
@@ -39,5 +36,9 @@ div {
 ul {
   text-align: left;
 }
-
+.text {
+  text-align: left;
+  overflow-y: hidden;
+  white-space: pre;
+}
 </style>

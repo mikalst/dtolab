@@ -1,13 +1,16 @@
 <template>
   <header>
-    <b-container class="title">
+    <b-container 
+      class="my-auto title">
       <h1>dtolab.dev</h1>
     </b-container>
     <b-form-select 
       :style="{ height: '100%' }"
       v-on:change="update_classtype" 
       v-model="classtype" 
-      class="select">
+      size="sm"
+      class="mx-1 select"
+    >
       <b-form-select-option :value="'class'">class</b-form-select-option>
       <b-form-select-option :value="'struct'">struct</b-form-select-option>
       <b-form-select-option :value="'record'">record</b-form-select-option>
@@ -16,14 +19,22 @@
     <b-form-input 
       v-model="namespace" 
       :style="{ width: namespace.length+'em' }" 
+      size="sm"
+      class="mx-1"
       v-on:keyup="update_namespace" 
       placeholder="ns"></b-form-input>
     <b-form-input 
       v-model="filename" 
       :style="{ width: filename.length+'em' }" 
+      size="sm"
+      class="mx-1"
       v-on:keyup="update_name" 
       placeholder="dto"></b-form-input>
-    <b-button v-on:click="download"> Download </b-button>
+    <b-button 
+      variant="outline-primary" 
+      size="sm" v-on:click="download"
+      class="mx-1"
+    > Download </b-button>
   </header>
 </template>
 
@@ -78,7 +89,6 @@ header {
   height: 100%;
 }
 h1 {
-  padding-left: 0.5em;
   margin: 0;
   vertical-align: middle;
 }
@@ -88,7 +98,6 @@ h1 {
 }
 button {
   flex: 0 1 auto;
-  width: 15%;
   background-color: var(--header-color);
   color: var(--header-text-color);
 }

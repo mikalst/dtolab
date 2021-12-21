@@ -1,23 +1,22 @@
 <template>
   <section v-on:keyup="onChange">
-  <CodeEditor 
-    v-model="msg"
-    :autofocus="true"
-    :width="'100%'"
-    :height="'100%'"
-    :border_radius="'0px'"
-
-    ></CodeEditor>
+    <b-form-textarea 
+      v-model="msg"
+      :autofocus="true"
+      rows="3"
+      max-rows="8"
+      no-auto-shrink
+      @keydown.tab.prevent="tabber($event)"
+      class="textarea"
+    ></b-form-textarea >
   </section>
 </template>
 
 <script>
-import CodeEditor from 'simple-code-editor';
 
 export default {
   name: 'InputArea',
   components: {
-    CodeEditor
   },
   data: function() {
       return {
@@ -27,6 +26,18 @@ export default {
   methods: {
     onChange: function(){
       this.$emit('input-updated', this.msg);
+    },
+    tabber (event) {
+      if (event) {
+        let text = this.msg,
+        originalSelectionStart = event.target.selectionStart,
+        textStart = text.slice(0, originalSelectionStart),
+        textEnd =  text.slice(originalSelectionStart);
+
+        this.msg = `${textStart}\t${textEnd}`
+        event.target.value = this.msg // required to make the cursor stay in place.
+        event.target.selectionEnd = event.target.selectionStart = originalSelectionStart + 1
+      }
     }
   }
 }
@@ -36,5 +47,9 @@ export default {
 <style scoped>
 section {
   line-height: 1.0;
+  height: 100%;
+}
+.textarea {
+  height: 100%;
 }
 </style>
