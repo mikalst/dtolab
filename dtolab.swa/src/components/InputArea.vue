@@ -7,7 +7,7 @@
       max-rows="8"
       no-auto-shrink
       @keydown.tab.prevent="tabber($event)"
-      class="textarea"
+      class="bg-dark text-white textarea"
     ></b-form-textarea >
   </section>
 </template>
@@ -45,10 +45,6 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-section {
-  line-height: 1.0;
-  height: 100%;
-}
 .textarea {
   height: 100%;
 }

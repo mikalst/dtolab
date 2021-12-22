@@ -1,9 +1,7 @@
 <template>
-  <header>
-    <b-container 
-      class="my-auto title">
-      <h1>dtolab.dev</h1>
-    </b-container>
+  <b-navbar class="py-1 pl-1 header">
+    <b-icon icon="speedometer" size="lg" class="mx-2 icon"></b-icon>
+    <h4 class="my-auto mx-1 title">dtolab.dev</h4>
     <b-form-select 
       :style="{ height: '100%' }"
       v-on:change="update_classtype" 
@@ -31,16 +29,18 @@
       v-on:keyup="update_name" 
       placeholder="dto"></b-form-input>
     <b-button 
-      variant="outline-primary" 
+      variant="dark" 
       size="sm" v-on:click="download"
       class="mx-1"
-    > Download </b-button>
-  </header>
+    ><b-icon size="lg" icon="download"></b-icon></b-button>
+  </b-navbar>
 </template>
 
 <script>
 export default {
   name: 'Banner',
+  components: {
+  },
   methods: {
     download: function() {
       this.$emit("download");
@@ -73,14 +73,16 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-header {
+.header {
   text-align: left;
   display: flex;
-  color: var(--header-text-color);
-  background-color: var(--header-color);
-  padding-top: 0.15rem;
-  padding-bottom: 0.15rem;
-  padding-right: 0.5rem;
+}
+.icon {
+  flex: 0 1 auto;
+  max-width: 5%;
+  display: flex;
+  align-items: center;
+  height: 100%;
 }
 .title {
   flex: 1 1 auto;
@@ -88,18 +90,12 @@ header {
   align-items: center;
   height: 100%;
 }
-h1 {
-  margin: 0;
-  vertical-align: middle;
-}
 .select {
   flex: 0 1 auto;
   width: 15%;
 }
 button {
   flex: 0 1 auto;
-  background-color: var(--header-color);
-  color: var(--header-text-color);
 }
 input {
   flex: 0 1 auto;

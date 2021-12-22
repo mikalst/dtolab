@@ -1,5 +1,5 @@
 <template>
-  <b-card class="text">
+  <b-card class="text bg-dark text-white my-1">
     {{file}}
   </b-card>
 </template>

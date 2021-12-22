@@ -131,18 +131,10 @@ export default {
   font-size: 0.65rem;
   color: #2c3e50;
 }
-:root {
-    --highlight-color: #efefef;
-    --header-color: #abb2bf;
-    --header-text-color: #282c34;
-    --border-color: #aaa;
-    --footer-color: #eee;
-}
 h1 {
   font-family: Consolas, Monaco, monospace;
   align-content: center;
   vertical-align: center;
-  margin-left: 0.5em;
 }
 input, button, select {
   font-family: Consolas, Monaco, monospace;
@@ -167,7 +159,7 @@ body {
 .header {
   display: flex;
   flex: 0 1 auto;
-  max-height: 5%;
+  /* max-height: 5%; */
 }
 .left {
   width: 50%;
